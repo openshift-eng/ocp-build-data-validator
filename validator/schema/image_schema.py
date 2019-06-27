@@ -34,7 +34,6 @@ def image_schema(file):
     return Schema({
         Optional('arches'): [Or(*valid_arches)],
         Optional('base_only'): True,
-        Optional('config'): 'wip',
         Optional('container_yaml'): {
             'go': {
                 'modules': [
