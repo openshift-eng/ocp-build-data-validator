@@ -80,7 +80,18 @@ def has_declared_dockerfile(data):
 
 
 def get_dockerfile(data):
-    return data['content']['source']['dockerfile']
+    path = '{}/'.format(get_custom_path(data)) if has_custom_path(data) else ''
+    return '{}{}'.format(path, data['content']['source']['dockerfile'])
+
+
+def has_custom_path(data):
+    return ('content' in data
+            and 'source' in data['content']
+            and 'path' in data['content']['source'])
+
+
+def get_custom_path(data):
+    return data['content']['source']['path']
 
 
 def file_exists_on_repo(dockerfile, url, branch):

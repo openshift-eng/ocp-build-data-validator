@@ -138,6 +138,40 @@ class TestGitHub(unittest.TestCase):
         self.assertEqual(err, ('dockerfile Dockerfile.rhel7 '
                                'not found on branch xyz'))
 
+    def test_declared_dockerfile_on_custom_path(self):
+        bad_file_url = 'https://github.com/org/repo/blob/xyz/Dockerfile.rhel7'
+        (flexmock(github.support)
+            .should_receive('resource_exists')
+            .with_args(bad_file_url)
+            .and_return(False))
+
+        good_file_url = ('https://github.com/org/repo/blob/xyz/my/custom/path/'
+                         'Dockerfile.rhel7')
+        (flexmock(github.support)
+            .should_receive('resource_exists')
+            .with_args(good_file_url)
+            .and_return(True))
+
+        data = {
+            'content': {
+                'source': {
+                    'dockerfile': 'Dockerfile.rhel7',
+                    'git': {
+                        'branch': {
+                            'target': 'xyz',
+                            'fallback': 'fallback-branch',
+                        },
+                        'url': 'https://github.com/org/repo',
+                    },
+                    'path': 'my/custom/path',
+                }
+            }
+        }
+
+        (url, err) = github.validate(data, {'vars': {'MAJOR': 4, 'MINOR': 2}})
+        self.assertEqual(url, 'https://github.com/org/repo')
+        self.assertIsNone(err)
+
     def test_declared_manifest_doesnt_exist(self):
         (flexmock(github.support)
             .should_receive('resource_exists')
