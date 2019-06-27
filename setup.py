@@ -4,7 +4,7 @@ setuptools.setup(
     name='rh-ocp-build-data-validator',
     author='AOS ART Team',
     author_email='aos-team-art@redhat.com',
-    version='0.0.2',
+    version='0.0.3',
     description='Validation of ocp-build-data Image & RPM declarations',
     long_description=open('README.rst').read(),
     url='https://gitlab.cee.redhat.com/openshift-art/tools/ocp-build-data-validator',  # noqa: E501
