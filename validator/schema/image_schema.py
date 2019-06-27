@@ -25,6 +25,12 @@ def image_schema(file):
     valid_streams = support.get_valid_streams_for(file)
     valid_member_references = support.get_valid_member_references_for(file)
 
+    valid_modes = [
+        'auto',
+        'disabled',
+        'wip',
+    ]
+
     return Schema({
         Optional('arches'): [Or(*valid_arches)],
         Optional('base_only'): True,
@@ -91,7 +97,7 @@ def image_schema(file):
             Optional('io.openshift.tags'): And(str, len),
             Optional('vendor'): And(str, len),
         },
-        Optional('mode'): And(str, len),
+        Optional('mode'): Or(*valid_modes),
         'name': And(str, len),
         Optional('odcs'): {
             'packages': {
