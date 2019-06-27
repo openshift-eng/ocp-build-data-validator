@@ -199,6 +199,42 @@ class TestGitHub(unittest.TestCase):
         self.assertEqual(url, 'https://github.com/org/repo')
         self.assertEqual(err, 'manifests my-manifests not found on branch xyz')
 
+    def test_declared_manifest_on_custom_path(self):
+        bad_file_url = 'https://github.com/org/repo/blob/xyz/my-manifests'
+        (flexmock(github.support)
+            .should_receive('resource_exists')
+            .with_args(bad_file_url)
+            .and_return(False))
+
+        good_file_url = ('https://github.com/org/repo/blob/xyz/my/custom/path/'
+                         'my-manifests')
+        (flexmock(github.support)
+            .should_receive('resource_exists')
+            .with_args(good_file_url)
+            .and_return(True))
+
+        data = {
+            'content': {
+                'source': {
+                    'git': {
+                        'branch': {
+                            'target': 'xyz',
+                            'fallback': 'fallback-branch',
+                        },
+                        'url': 'https://github.com/org/repo',
+                    },
+                    'path': 'my/custom/path',
+                }
+            },
+            'update-csv': {
+                'manifests-dir': 'my-manifests',
+            },
+        }
+
+        (url, err) = github.validate(data, {'vars': {'MAJOR': 4, 'MINOR': 2}})
+        self.assertEqual(url, 'https://github.com/org/repo')
+        self.assertIsNone(err)
+
     def test_complete_example(self):
         data = {
             'content': {

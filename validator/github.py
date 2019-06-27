@@ -104,4 +104,5 @@ def has_declared_manifests(data):
 
 
 def get_manifests_dir(data):
-    return data['update-csv']['manifests-dir']
+    path = '{}/'.format(get_custom_path(data)) if has_custom_path(data) else ''
+    return '{}{}'.format(path, data['update-csv']['manifests-dir'])
