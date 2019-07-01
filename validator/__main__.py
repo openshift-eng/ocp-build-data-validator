@@ -1,11 +1,19 @@
 from __future__ import print_function
+import argparse
 import sys
 
 from . import format, support, schema, github, distgit
 
 
 def main():
-    file = sys.argv[1]
+    parser = argparse.ArgumentParser(
+        description='Validation of ocp-build-data Image & RPM declarations')
+    parser.add_argument('file',
+                        metavar='FILE',
+                        type=str,
+                        help='File to be validated')
+    args = parser.parse_args()
+    file = args.file
 
     print('Validating {}'.format(file))
 
