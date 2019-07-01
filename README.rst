@@ -25,7 +25,7 @@ repository:
 
 ::
 
-    $ for img in $(ls path/to/ocp-build/data/{images,rpms}/*); do validate-ocp-build-data $img || exit 1; done
+    $ for f in path/to/ocp-build/data/{images,rpms}/*; do validate-ocp-build-data $f || exit 1; done
 
 Validations
 -----------
