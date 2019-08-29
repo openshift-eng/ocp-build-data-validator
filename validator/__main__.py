@@ -40,10 +40,20 @@ def main():
                         type=str,
                         nargs='+',
                         help='Files to be validated')
+    parser.add_argument('-s',
+                        '--single-thread',
+                        dest='single_thread',
+                        default=False,
+                        action='store_true',
+                        help='Run in single thread, so code.interact() works')
     args = parser.parse_args()
 
-    try:
-        Pool(cpu_count()).map(validate, args.files)
-    except Exception as e:
-        print(str(e), file=sys.stderr)
-        exit(1)
+    if args.single_thread:
+        for f in args.files:
+            validate(f)
+    else:
+        try:
+            Pool(cpu_count()).map(validate, args.files)
+        except Exception as e:
+            print(str(e), file=sys.stderr)
+            exit(1)
