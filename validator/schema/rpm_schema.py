@@ -1,4 +1,10 @@
-from schema import Schema, Optional, And, Regex, SchemaError
+from schema import Schema, Optional, And, Or, Regex, SchemaError
+
+valid_modes = [
+    'auto',
+    'disabled',
+    'wip',
+]
 
 rpm_schema = Schema({
     'content': {
@@ -22,7 +28,7 @@ rpm_schema = Schema({
     Optional('enabled_repos'): [
         And(str, len),
     ],
-    Optional('mode'): 'wip',
+    Optional('mode'): Or(*valid_modes),
     'name': And(str, len),
     'owners': [
         And(str, len)
