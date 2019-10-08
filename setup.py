@@ -8,7 +8,7 @@ setuptools.setup(
     description='Validation of ocp-build-data Image & RPM declarations',
     long_description=open('README.rst').read(),
     url='https://gitlab.cee.redhat.com/openshift-art/tools/ocp-build-data-validator',  # noqa: E501
-    license='Red Hat Internal',
+    license='Apache License, Version 2.0',
     packages=['validator', 'validator.schema'],
     entry_points={'console_scripts': [
         'validate-ocp-build-data = validator.__main__:main'
