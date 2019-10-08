@@ -6,6 +6,7 @@ setuptools.setup(
     author_email='aos-team-art@redhat.com',
     version='0.0.8',
     description='Validation of ocp-build-data Image & RPM declarations',
+    long_description_content_type='text/x-rst',
     long_description=open('README.rst').read(),
     url='https://gitlab.cee.redhat.com/openshift-art/tools/ocp-build-data-validator',  # noqa: E501
     license='Apache License, Version 2.0',
