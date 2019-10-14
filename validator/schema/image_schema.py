@@ -1,19 +1,11 @@
 from validator import support
 from schema import Schema, Optional, Use, And, Or, SchemaError
+from validator.schema.modification_schema import modification
 
 
 def image_schema(file):
     valid_arches = [
         'x86_64',
-    ]
-
-    valid_modification_actions = [
-        'command',
-        'replace',
-    ]
-
-    valid_modification_commands = [
-        'update-console-sources',
     ]
 
     valid_distgit_namespaces = [
@@ -55,14 +47,7 @@ def image_schema(file):
                     },
                     'url': And(Use(str), len),
                 },
-                Optional('modifications'): [{
-                    'action': Or(*valid_modification_actions),
-                    Optional('command'): [
-                        Or(*valid_modification_commands),
-                    ],
-                    Optional('match'): And(str, len),
-                    Optional('replacement'): And(str, len),
-                }],
+                Optional('modifications'): [modification],
                 Optional('path'): str,
             },
         },
