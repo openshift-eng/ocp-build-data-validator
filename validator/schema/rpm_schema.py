@@ -1,5 +1,5 @@
 from schema import Schema, Optional, And, Or, Regex, SchemaError
-
+from validator.schema.modification_schema import modification
 valid_modes = [
     'auto',
     'disabled',
@@ -23,6 +23,7 @@ rpm_schema = Schema({
                 'url': And(str, len),
             },
             'specfile': Regex(r'.+\.spec$'),
+            Optional('modifications'): [modification],
         },
     },
     Optional('enabled_repos'): [
