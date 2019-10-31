@@ -44,11 +44,15 @@ def get_repository_name(file):
 
 def get_distgit_branch(data, group_cfg):
     if 'distgit' in data and 'branch' in data['distgit']:
-        return data['distgit']['branch']
+        return replace_vars(data['distgit']['branch'], group_cfg['vars'])
 
-    return (group_cfg['branch']
-            .replace('{MAJOR}', str(group_cfg['vars']['MAJOR']))
-            .replace('{MINOR}', str(group_cfg['vars']['MINOR'])))
+    return replace_vars(group_cfg['branch'], group_cfg['vars'])
+
+
+def replace_vars(text, vars_map):
+    return (text
+            .replace('{MAJOR}', str(vars_map['MAJOR']))
+            .replace('{MINOR}', str(vars_map['MINOR'])))
 
 
 def branch_exists(branch, url):

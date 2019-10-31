@@ -84,6 +84,19 @@ class TestDistgit(unittest.TestCase):
         self.assertEqual(url, expected_url)
         self.assertIsNone(err)
 
+    def test_use_branch_declared_on_file_with_vars(self):
+        expected_url = 'http://my.cgit.endpoint/containers/img'
+
+        (flexmock(distgit)
+            .should_receive('branch_exists')
+            .with_args('my-4-branch.2', expected_url)
+            .and_return(True))
+
+        data = {'distgit': {'branch': 'my-{MAJOR}-branch.{MINOR}'}}
+        (url, err) = distgit.validate('images/img.yml', data, self.group_cfg)
+        self.assertEqual(url, expected_url)
+        self.assertIsNone(err)
+
     def test_use_branch_from_group_cfg(self):
         expected_url = 'http://my.cgit.endpoint/containers/my-img'
 
