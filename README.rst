@@ -1,6 +1,9 @@
 ocp-build-data-validator
 ========================
 
+.. image:: https://codecov.io/gh/openshift/ocp-build-data-validator/branch/master/graph/badge.svg
+  :target: https://codecov.io/gh/openshift/ocp-build-data-validator
+
 Validation of `ocp-build-data <https://gitlab.cee.redhat.com/openshift-art/ocp-build-data>`__
 Image & RPM declarations
 
