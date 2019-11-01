@@ -2,9 +2,13 @@ import os
 import requests
 import yaml
 
+from . import exceptions
+
 
 def fail_validation(msg, parsed):
-    raise Exception(msg)
+    if 'mode' in parsed and parsed['mode'] == 'wip':
+        raise exceptions.ValidationFailedWIP(msg)
+    raise exceptions.ValidationFailed(msg)
 
 
 def is_disabled(parsed):

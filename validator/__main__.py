@@ -3,7 +3,7 @@ from multiprocessing import Pool, cpu_count
 import argparse
 import sys
 
-from . import format, support, schema, github, distgit
+from . import format, support, schema, github, distgit, exceptions
 
 
 def validate(file):
@@ -59,7 +59,15 @@ def main():
             validate(f)
     else:
         try:
+            rc = 0
             Pool(cpu_count()).map(validate, args.files)
-        except Exception as e:
+
+        except exceptions.ValidationFailedWIP as e:
             print(str(e), file=sys.stderr)
-            exit(1)
+
+        except (exceptions.ValidationFailed, Exception) as e:
+            print(str(e), file=sys.stderr)
+            rc += 1
+
+        finally:
+            exit(rc)
