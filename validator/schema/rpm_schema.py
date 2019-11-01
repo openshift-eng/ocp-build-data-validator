@@ -17,7 +17,7 @@ rpm_schema = Schema({
             Optional('alias'): And(str, len),
             Optional('git'): {
                 'branch': {
-                    'fallback': And(str, len),
+                    Optional('fallback'): And(str, len),
                     'target': And(str, len),
                 },
                 'url': And(str, len),
