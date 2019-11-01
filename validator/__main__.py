@@ -27,13 +27,13 @@ def validate(file):
 
     (url, err) = github.validate(parsed, group_cfg)
     if err:
-        raise Exception(('GitHub validation failed for {}\n'
-                         'Returned error: {}').format(url, err))
+        raise Exception(('GitHub validation failed for {} ({})\n'
+                         'Returned error: {}').format(file, url, err))
 
     (url, err) = distgit.validate(file, parsed, group_cfg)
     if err:
-        raise Exception(('DistGit validation failed for {}\n'
-                         'Returned error: {}').format(url, err))
+        raise Exception(('DistGit validation failed for {} ({})\n'
+                         'Returned error: {}').format(file, url, err))
 
 
 def main():
