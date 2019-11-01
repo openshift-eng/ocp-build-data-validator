@@ -14,6 +14,10 @@ def validate(file):
         raise Exception(('{} is not a valid YAML\n'
                          'Returned error: {}').format(file, err))
 
+    if support.is_disabled(parsed):
+        print('Skipping validation of disabled {}.'.format(file))
+        return
+
     err = schema.validate(file, parsed)
     if err:
         raise Exception(('schema mismatch: {}\n'

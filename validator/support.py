@@ -3,6 +3,10 @@ import requests
 import yaml
 
 
+def is_disabled(parsed):
+    return 'mode' in parsed and parsed['mode'] == 'disabled'
+
+
 def load_group_config_for(file):
     group_yaml = os.path.join(get_ocp_build_data_dir(file), 'group.yml')
     return yaml.safe_load(open(group_yaml).read())
