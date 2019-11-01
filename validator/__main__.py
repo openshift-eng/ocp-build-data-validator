@@ -11,8 +11,8 @@ def validate(file):
 
     (parsed, err) = format.validate(open(file).read())
     if err:
-        raise Exception(('{} is not a valid YAML\n'
-                         'Returned error: {}').format(file, err))
+        msg = '{} is not a valid YAML\nReturned error: {}'.format(file, err)
+        raise Exception(msg)
 
     if support.is_disabled(parsed):
         print('Skipping validation of disabled {}.'.format(file))
@@ -20,20 +20,22 @@ def validate(file):
 
     err = schema.validate(file, parsed)
     if err:
-        raise Exception(('schema mismatch: {}\n'
-                         'Returned error: {}').format(file, err))
+        msg = 'Schema mismatch: {}\nReturned error: {}'.format(file, err)
+        raise Exception(msg)
 
     group_cfg = support.load_group_config_for(file)
 
     (url, err) = github.validate(parsed, group_cfg)
     if err:
-        raise Exception(('GitHub validation failed for {} ({})\n'
-                         'Returned error: {}').format(file, url, err))
+        msg = ('GitHub validation failed for {} ({})\n'
+               'Returned error: {}').format(file, url, err)
+        raise Exception(msg)
 
     (url, err) = distgit.validate(file, parsed, group_cfg)
     if err:
-        raise Exception(('DistGit validation failed for {} ({})\n'
-                         'Returned error: {}').format(file, url, err))
+        msg = ('DistGit validation failed for {} ({})\n'
+               'Returned error: {}').format(file, url, err)
+        raise Exception(msg)
 
 
 def main():
