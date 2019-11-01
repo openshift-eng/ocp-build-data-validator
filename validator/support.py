@@ -3,6 +3,10 @@ import requests
 import yaml
 
 
+def fail_validation(msg, parsed):
+    raise Exception(msg)
+
+
 def is_disabled(parsed):
     return 'mode' in parsed and parsed['mode'] == 'disabled'
 
