@@ -1,10 +1,25 @@
 import sys
 import unittest
 import flexmock
-from validator import support
+from validator import support, exceptions
 
 
 class TestSupport(unittest.TestCase):
+
+    def test_fail_validation(self):
+        self.assertRaises(exceptions.ValidationFailedWIP,
+                          support.fail_validation, 'msg', {'mode': 'wip'})
+
+        self.assertRaises(exceptions.ValidationFailed,
+                          support.fail_validation, 'msg', {'mode': 'other'})
+
+        self.assertRaises(exceptions.ValidationFailed,
+                          support.fail_validation, 'msg', {})
+
+    def test_is_disabled(self):
+        self.assertTrue(support.is_disabled({'mode': 'disabled'}))
+        self.assertFalse(support.is_disabled({'mode': 'anything-else'}))
+        self.assertFalse(support.is_disabled({}))
 
     def test_load_group_config_for(self):
         fake_group_yaml = """
