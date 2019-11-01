@@ -1,6 +1,8 @@
 ocp-build-data-validator
 ========================
 
+.. image:: https://badge.fury.io/py/rh-ocp-build-data-validator.svg
+  :target: https://badge.fury.io/py/rh-ocp-build-data-validator
 .. image:: https://codecov.io/gh/openshift/ocp-build-data-validator/branch/master/graph/badge.svg
   :target: https://codecov.io/gh/openshift/ocp-build-data-validator
 
