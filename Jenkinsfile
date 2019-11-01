@@ -1,51 +1,10 @@
-def commentOnPullRequest(msg) {
-    withCredentials([string(
-        credentialsId: "openshift-bot-token",
-        variable: "GITHUB_TOKEN"
-    )]) {
-        script {
-            writeFile(
-                file: "msg.txt",
-                text: msg
-            )
-            requestBody = sh(
-                returnStdout: true,
-                script: "jq --rawfile msg msg.txt -nr '{\"body\": \$msg}'"
-            )
-            repositoryName = env.GIT_URL
-                .replace("https://github.com/", "")
-                .replace(".git", "")
-
-            httpRequest(
-                contentType: 'APPLICATION_JSON',
-                customHeaders: [[
-                    maskValue: true,
-                    name: 'Authorization',
-                    value: "token ${env.GITHUB_TOKEN}"
-                ]],
-                httpMode: 'POST',
-                requestBody: requestBody,
-                responseHandle: 'NONE',
-                url: "https://api.github.com/repos/${repositoryName}/issues/${env.CHANGE_ID}/comments"
-            )
-        }
-    }
-}
-
-def publishToPyPI() {
-    withCredentials([usernamePassword(
-        credentialsId: "OpenShiftART_PyPI",
-        usernameVariable: "TWINE_USERNAME",
-        passwordVariable: "TWINE_PASSWORD"
-    )]) {
-        sh "python3 -m twine upload dist/*"
-    }
-}
+@Library('art-ci-toolkit@master') _
 
 pipeline {
     agent {
         docker {
-            image "redhat/art-tools-ci:latest"
+            image "redhat/art-ci-toolkit:latest"
+            alwaysPull true
             args "--entrypoint=''"
         }
     }
@@ -64,9 +23,18 @@ pipeline {
                 }
             }
         }
+        stage("Publish Coverage Report") {
+            steps {
+                catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
+                    withCredentials([string(credentialsId: "validator-codecov-token", variable: "CODECOV_TOKEN")]) {
+                        sh "codecov --token ${env.CODECOV_TOKEN}"
+                    }
+                }
+            }
+        }
         stage("Publish to PyPI") {
             when {
-                branch "master"
+                buildingTag()
             }
             steps {
                 sh "python3 setup.py bdist_wheel --universal"
