@@ -6,6 +6,7 @@ from validator.schema.modification_schema import modification
 def image_schema(file):
     valid_arches = [
         'x86_64',
+        'ppc64le',
     ]
 
     valid_distgit_namespaces = [
