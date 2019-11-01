@@ -26,6 +26,9 @@ rpm_schema = Schema({
             Optional('modifications'): [modification],
         },
     },
+    Optional('distgit'): {
+        Optional('branch'): And(str, len),
+    },
     Optional('enabled_repos'): [
         And(str, len),
     ],
