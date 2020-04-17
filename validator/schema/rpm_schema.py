@@ -37,11 +37,6 @@ rpm_schema = Schema({
     'owners': [
         And(str, len)
     ],
-    Optional('maintainer'): {
-        Optional('product'): And(str, len),
-        'component': And(str, len),
-        Optional('subcomponent'): And(str, len),
-    },
 })
 
 

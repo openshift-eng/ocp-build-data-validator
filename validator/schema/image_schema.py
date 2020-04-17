@@ -108,11 +108,6 @@ def image_schema(file):
             Optional('channel'): And(str, len),
         },
         Optional('wait_for'): And(str, len),
-        Optional('maintainer'): {
-            Optional('product'): And(str, len),
-            'component': And(str, len),
-            Optional('subcomponent'): And(str, len),
-        },
     })
 
 
