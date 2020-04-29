@@ -97,7 +97,10 @@ def image_schema(file):
             And(str, len),
         ],
         Optional('push'): {
-            'repos': [
+            Optional('repos'): [
+                And(str, len),
+            ],
+            Optional('additional_tags'): [
                 And(str, len),
             ],
         },
