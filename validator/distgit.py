@@ -1,5 +1,5 @@
 import os
-from . import support
+from validator import support
 
 
 def validate(file, data, group_cfg):
@@ -22,9 +22,9 @@ def validate(file, data, group_cfg):
 
     branch = get_distgit_branch(data, group_cfg)
     if not branch_exists(branch, url):
-        return (url, ('Branch {} not found on DistGit'.format(branch)))
+        return url, ('Branch {} not found on DistGit'.format(branch))
 
-    return (url, None)
+    return url, None
 
 
 def get_cgit_endpoint(group_cfg):

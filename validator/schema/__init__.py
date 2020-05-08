@@ -1,5 +1,5 @@
-from . import image_schema, rpm_schema
-from .. import support
+from validator.schema import image_schema, rpm_schema
+from validator import support
 
 
 def validate(file, data):

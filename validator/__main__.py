@@ -3,12 +3,18 @@ from multiprocessing import Pool, cpu_count
 import argparse
 import sys
 
-from . import format, support, schema, github, distgit, exceptions
+from validator import format, support, schema, github, distgit, exceptions
+
+token = None
+
+
+def set_github_token(input_token):
+    global token
+    token = input_token
 
 
 def validate(file):
     print('Validating {}'.format(file))
-
     (parsed, err) = format.validate(open(file).read())
     if err:
         msg = '{} is not a valid YAML\nReturned error: {}'.format(file, err)
@@ -46,6 +52,11 @@ def main():
                         type=str,
                         nargs='+',
                         help='Files to be validated')
+    parser.add_argument('-t',
+                        '--github-token',
+                        dest='token',
+                        type=str,
+                        help='Github access token to access private repo')
     parser.add_argument('-s',
                         '--single-thread',
                         dest='single_thread',
@@ -53,7 +64,7 @@ def main():
                         action='store_true',
                         help='Run in single thread, so code.interact() works')
     args = parser.parse_args()
-
+    set_github_token(args.token)
     if args.single_thread:
         for f in args.files:
             validate(f)

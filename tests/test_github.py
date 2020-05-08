@@ -56,12 +56,13 @@ class TestGitHub(unittest.TestCase):
     def test_target_branch_doesnt_exist(self):
         (flexmock(github)
             .should_receive('branch_exists')
-            .with_args('release-4.2', 'https://github.com/myorg/myrepo')
+            .with_args('release-4.2', 'https://github.com/myorg/myrepo', None)
             .and_return(False))
 
         (flexmock(github)
             .should_receive('branch_exists')
-            .with_args('fallback-branch', 'https://github.com/myorg/myrepo')
+            .with_args('fallback-branch',
+                       'https://github.com/myorg/myrepo', None)
             .and_return(True))
 
         data = {
@@ -85,12 +86,13 @@ class TestGitHub(unittest.TestCase):
     def test_target_nor_fallback_branches_exist(self):
         (flexmock(github)
             .should_receive('branch_exists')
-            .with_args('release-4.2', 'https://github.com/myorg/myrepo')
+            .with_args('release-4.2', 'https://github.com/myorg/myrepo', None)
             .and_return(False))
 
         (flexmock(github)
             .should_receive('branch_exists')
-            .with_args('fallback-branch', 'https://github.com/myorg/myrepo')
+            .with_args('fallback-branch',
+                       'https://github.com/myorg/myrepo', None)
             .and_return(False))
 
         data = {
@@ -245,7 +247,7 @@ class TestGitHub(unittest.TestCase):
                             'target': 'xyz',
                             'fallback': 'fallback-branch',
                         },
-                        'url': 'https://github.com/org/repo',
+                        'url': 'https://github.com/org/repo1',
                     }
                 }
             },
@@ -255,5 +257,5 @@ class TestGitHub(unittest.TestCase):
         }
 
         (url, err) = github.validate(data, {'vars': {'MAJOR': 4, 'MINOR': 2}})
-        self.assertEqual(url, 'https://github.com/org/repo')
+        self.assertEqual(url, 'https://github.com/org/repo1')
         self.assertIsNone(err)

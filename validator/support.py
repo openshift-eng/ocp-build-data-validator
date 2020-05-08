@@ -2,7 +2,8 @@ import os
 import requests
 import yaml
 
-from . import exceptions
+from validator import exceptions
+from validator import __main__
 
 
 def fail_validation(msg, parsed):
@@ -45,7 +46,14 @@ def get_valid_member_references_for(file):
 
 
 def resource_exists(url):
-    return 200 <= requests.head(url).status_code < 400
+    if __main__.token is not None:
+        # https://developer.github.com/v3/repos/#get-a-repository
+        api_url = url.replace('https://github.com/',
+                              'https://api.github.com/repos/')
+        headers = {'Authorization': 'token %s' % __main__.token}
+        return 200 <= requests.head(api_url, headers=headers).status_code < 400
+    else:
+        return 200 <= requests.head(url).status_code < 400
 
 
 def resource_is_reacheable(url):
