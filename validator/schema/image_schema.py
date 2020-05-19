@@ -107,6 +107,7 @@ def image_schema(file):
         Optional('required'): bool,
         Optional('update-csv'): {
             'manifests-dir': And(str, len),
+            'bundle-dir': And(str, len),
             'registry': And(str, len),
             Optional('channel'): And(str, len),
         },
