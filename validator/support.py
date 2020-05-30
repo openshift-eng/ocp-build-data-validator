@@ -51,7 +51,8 @@ def resource_exists(url):
         api_url = url.replace('https://github.com/',
                               'https://api.github.com/repos/')
         headers = {'Authorization': 'token %s' % __main__.token}
-        return 200 <= requests.head(api_url, headers=headers).status_code < 400
+        return 200 <= __main__.github_session.\
+            head(api_url, headers=headers).status_code < 400
     else:
         return 200 <= requests.head(url).status_code < 400
 

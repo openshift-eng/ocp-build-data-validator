@@ -1,6 +1,7 @@
 from __future__ import print_function
 from multiprocessing import Pool, cpu_count
 import argparse
+import requests
 import sys
 
 from validator import format, support, schema, github, distgit, exceptions
@@ -44,6 +45,15 @@ def validate(file):
         support.fail_validation(msg, parsed)
 
 
+github_session = None
+
+
+def set_global_session():
+    global github_session
+    if not github_session:
+        github_session = requests.Session()
+
+
 def main():
     parser = argparse.ArgumentParser(
         description='Validation of ocp-build-data Image & RPM declarations')
@@ -71,7 +81,8 @@ def main():
     else:
         try:
             rc = 0
-            Pool(cpu_count()).map(validate, args.files)
+            Pool(cpu_count(), initializer=set_global_session).\
+                map(validate, args.files)
 
         except exceptions.ValidationFailedWIP as e:
             print(str(e), file=sys.stderr)
