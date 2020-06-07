@@ -257,3 +257,41 @@ class TestGitHub(unittest.TestCase):
         (url, err) = github.validate(data, {'vars': {'MAJOR': 4, 'MINOR': 2}})
         self.assertEqual(url, 'https://github.com/org/repo')
         self.assertIsNone(err)
+
+    def test_private_org_example(self):
+        data = {
+            'content': {
+                'source': {
+                    'dockerfile': 'Dockerfile.rhel7',
+                    'git': {
+                        'branch': {
+                            'target': 'xyz',
+                            'fallback': 'fallback-branch',
+                        },
+                        'url': 'https://github.com/openshift-priv/repo',
+                    }
+                }
+            },
+            'update-csv': {
+                'manifests-dir': 'my-manifests',
+            },
+        }
+
+        (url, err) = github.validate(data, {"vars": {
+            "MAJOR": 4,
+            "MINOR": 2
+        },
+            "public_upstreams": [
+            {
+                "private": "https://github.com/openshift-priv",
+                "public": "https://github.com/openshift",
+                "public_branch": "release-4.2"
+            },
+            {
+                "private": "https://github.com/openshift/ose",
+                "public": "https://github.com/openshift/origin",
+                "public_branch": "release-4.2"
+            }
+        ]})
+        self.assertEqual(url, 'https://github.com/openshift/repo')
+        self.assertIsNone(err)
