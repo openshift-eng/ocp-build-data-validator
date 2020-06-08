@@ -7,6 +7,9 @@ def validate(data, group_cfg):
 
     url = get_repository_url(data)
 
+    if group_cfg and 'public_upstreams' in group_cfg:
+        url = translate_private_upstream_to_public(url, group_cfg)
+
     if not support.resource_exists(url):
         return (url, "GitHub repository {} doesn't exist".format(url))
 
@@ -49,6 +52,12 @@ def get_repository_url(data):
     return (data['content']['source']['git']['url']
             .replace('git@github.com:', 'https://github.com/')
             .replace('.git', ''))
+
+
+def translate_private_upstream_to_public(url, group_cfg):
+    for upstream in group_cfg['public_upstreams']:
+        url = url.replace(upstream['private'], upstream['public'])
+    return url
 
 
 def has_declared_branches(data):
