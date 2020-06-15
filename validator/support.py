@@ -3,6 +3,7 @@ import requests
 import yaml
 
 from . import exceptions
+from . import global_session
 
 
 def fail_validation(msg, parsed):
@@ -45,7 +46,11 @@ def get_valid_member_references_for(file):
 
 
 def resource_exists(url):
-    return 200 <= requests.head(url).status_code < 400
+    if global_session.request_session:
+        return 200 <= global_session.request_session\
+            .head(url).status_code < 400
+    else:
+        return 200 <= requests.head(url).status_code < 400
 
 
 def resource_is_reacheable(url):
