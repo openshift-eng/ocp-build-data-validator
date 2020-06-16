@@ -1,9 +1,11 @@
 from __future__ import print_function
-from multiprocessing import Pool, cpu_count
+
 import argparse
 import sys
+from multiprocessing import Pool, cpu_count
 
-from . import format, support, schema, github, distgit, exceptions
+from . import format, support, schema, github, distgit
+from . import exceptions, global_session
 
 
 def validate(file):
@@ -60,8 +62,9 @@ def main():
     else:
         try:
             rc = 0
-            Pool(cpu_count()).map(validate, args.files)
-
+            Pool(cpu_count(),
+                 initializer=global_session.set_global_session).map(
+                 validate, args.files)
         except exceptions.ValidationFailedWIP as e:
             print(str(e), file=sys.stderr)
 
