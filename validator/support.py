@@ -47,8 +47,15 @@ def get_valid_member_references_for(file):
 
 def resource_exists(url):
     if global_session.request_session:
-        return 200 <= global_session.request_session\
-            .head(url).status_code < 400
+        s = global_session.request_session\
+            .head(url)
+        if 200 <= s.status_code < 400:
+            return True
+        else:
+            # print(s.text)
+            print(url)
+            print(s.status_code)
+            return False
     else:
         return 200 <= requests.head(url).status_code < 400
 
