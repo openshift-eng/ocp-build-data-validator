@@ -1,5 +1,9 @@
 from schema import Schema, Optional, And, Or, Regex, SchemaError
 from validator.schema.modification_schema import modification
+
+
+GIT_SSH_URL_REGEX = r'((git@[\w\.]+))([\w\.@\:/\-~]+)(\.git)(/)?'
+
 valid_modes = [
     'auto',
     'disabled',
@@ -20,7 +24,7 @@ rpm_schema = Schema({
                     Optional('fallback'): And(str, len),
                     'target': And(str, len),
                 },
-                'url': And(str, len),
+                'url': And(str, len, Regex(GIT_SSH_URL_REGEX)),
             },
             'specfile': Regex(r'.+\.spec$'),
             Optional('modifications'): [modification],

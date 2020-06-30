@@ -1,6 +1,8 @@
 from validator import support
-from schema import Schema, Optional, Use, And, Or, SchemaError
+from schema import Schema, Optional, And, Or, Regex, SchemaError
 from validator.schema.modification_schema import modification
+
+GIT_SSH_URL_REGEX = r'((git@[\w\.]+))([\w\.@\:/\-~]+)(\.git)(/)?'
 
 
 def image_schema(file):
@@ -46,7 +48,7 @@ def image_schema(file):
                         Optional('fallback'): And(str, len),
                         'target': And(str, len),
                     },
-                    'url': And(Use(str), len),
+                    'url': And(str, len, Regex(GIT_SSH_URL_REGEX)),
                 },
                 Optional('modifications'): [modification],
                 Optional('path'): str,
