@@ -46,6 +46,7 @@ def image_schema(file):
                 Optional('git'): {
                     'branch': {
                         Optional('fallback'): And(str, len),
+                        Optional('stage'): And(str, len),
                         'target': And(str, len),
                     },
                     'url': And(str, len, Regex(GIT_SSH_URL_REGEX)),
