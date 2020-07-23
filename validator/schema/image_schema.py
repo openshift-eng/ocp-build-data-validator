@@ -118,6 +118,7 @@ def image_schema(file):
             Optional('additional_tags'): [
                 And(str, len),
             ],
+            Optional('late'): bool,
         },
         Optional('required'): bool,
         Optional('update-csv'): {
