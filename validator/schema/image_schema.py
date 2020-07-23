@@ -98,7 +98,10 @@ def image_schema(file):
         'name': And(str, len),
         Optional('odcs'): {
             'packages': {
-                'exclude': [
+                Optional('exclude'): [
+                    And(str, len),
+                ],
+                Optional('list'): [
                     And(str, len),
                 ],
                 'mode': Or(*valid_odcs_modes),
