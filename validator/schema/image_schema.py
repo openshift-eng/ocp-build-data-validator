@@ -84,6 +84,7 @@ def image_schema(file):
             Optional('io.openshift.tags'): And(str, len),
             Optional('vendor'): And(str, len),
         },
+        Optional('image_build_method'): And(str, len),
         Optional('mode'): Or(*valid_modes),
         'name': And(str, len),
         Optional('odcs'): {
