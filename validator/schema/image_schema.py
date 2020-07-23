@@ -32,6 +32,9 @@ def image_schema(file):
     ]
 
     return Schema({
+        Optional('additional_tags'): [
+            And(str, len),
+        ],
         Optional('arches'): [Or(*valid_arches)],
         Optional('base_only'): True,
         Optional('container_yaml'): {
