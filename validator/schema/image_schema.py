@@ -26,6 +26,11 @@ def image_schema(file):
         'wip',
     ]
 
+    valid_odcs_modes = [
+        'auto',
+        'manual',
+    ]
+
     return Schema({
         Optional('arches'): [Or(*valid_arches)],
         Optional('base_only'): True,
@@ -93,7 +98,7 @@ def image_schema(file):
                 'exclude': [
                     And(str, len),
                 ],
-                'mode': 'auto',
+                'mode': Or(*valid_odcs_modes),
             },
         },
         Optional('no_oit_comments'): bool,
