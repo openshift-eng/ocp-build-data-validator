@@ -133,6 +133,7 @@ def image_schema(file):
             'component': And(str, len),
             Optional('subcomponent'): And(str, len),
         },
+        'for_payload': bool,
     })
 
 
