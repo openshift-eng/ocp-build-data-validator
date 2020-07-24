@@ -18,6 +18,7 @@ class TestImageSchema(unittest.TestCase):
         valid_data = {
             'from': {},
             'name': 'my-name',
+            'for_payload': True,
         }
         self.assertIsNone(image_schema.validate('filename', valid_data))
 
@@ -86,5 +87,6 @@ class TestImageSchema(unittest.TestCase):
             },
             'name': '1234',
             'from': {},
+            'for_payload': True,
         }
         self.assertIsNone(image_schema.validate('filename', valid_data))
