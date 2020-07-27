@@ -4,3 +4,7 @@ class ValidationFailedWIP(Exception):
 
 class ValidationFailed(Exception):
     pass
+
+
+class ValidationFailedSkipNonRelease(Exception):
+    pass
