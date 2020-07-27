@@ -77,6 +77,9 @@ def image_schema(file):
         Optional('non_shipping_repos'): [
             And(str, len),
         ],
+        Optional('non_shipping_rpms'): [
+            And(str, len),
+        ],
         'from': {
             Optional('builder'): [
                 {
