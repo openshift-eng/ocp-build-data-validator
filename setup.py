@@ -4,7 +4,7 @@ setuptools.setup(
     name='rh-ocp-build-data-validator',
     author='AOS ART Team',
     author_email='aos-team-art@redhat.com',
-    version='0.1.16',
+    version='0.1.17',
     description='Validation of ocp-build-data Image & RPM declarations',
     long_description_content_type='text/x-rst',
     long_description=open('README.rst').read(),
