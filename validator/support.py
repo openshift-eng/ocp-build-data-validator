@@ -46,6 +46,9 @@ def get_valid_member_references_for(file):
 
 
 def resource_exists(url):
+    if url.startswith('https://github.com/openshift/ose-ovn-kubernetes'):
+        # This is a private repository, and only used for 3.11. This will not change.
+        return True
     if global_session.request_session:
         return 200 <= global_session.request_session\
             .head(url).status_code < 400
