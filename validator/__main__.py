@@ -9,7 +9,7 @@ from . import format, support, schema, github, distgit
 from . import exceptions, global_session
 
 
-class NoRelaseSet(object):
+class NonReleaseSet(object):
     def __init__(self):
         self.data = set()
 
@@ -21,7 +21,7 @@ class NoRelaseSet(object):
             return self.data
 
 
-non_release_set = NoRelaseSet()
+non_release_set = NonReleaseSet()
 
 
 def skip_non_release(file, group_cfg, btype):
