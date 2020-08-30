@@ -127,6 +127,14 @@ def image_schema(file):
             Optional('late'): bool,
         },
         Optional('required'): bool,
+        Optional('scan_sources'): {
+            Optional('extra_packages'): [
+                {
+                    'name': And(str, len),
+                    'tag': And(str, len),
+                },
+            ],
+        },
         Optional('update-csv'): {
             'manifests-dir': And(str, len),
             'bundle-dir': And(str, len),
