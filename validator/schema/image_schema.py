@@ -61,6 +61,23 @@ def image_schema(file):
                 },
                 Optional('modifications'): [modification],
                 Optional('path'): str,
+                Optional('pkg_managers'): [
+                    And(str, len, lambda s: s in ('gomod',)),
+                ],
+                Optional('ci_alignment'): {
+                    Optional('streams_prs'): {
+                        # Default (Missing) == true.
+                        Optional('enabled'): bool,
+                        'auto_label': [
+                            And(str, len),
+                        ],
+                        # merge_first means that child images will not get PRs opened
+                        # until this image is aligned. This helps prevent images like
+                        # openshift's base image from having 100s of PRs referencing
+                        # its PR.
+                        Optional('merge_first'): bool,
+                    },
+                },
             },
         },
         Optional('dependents'): [
