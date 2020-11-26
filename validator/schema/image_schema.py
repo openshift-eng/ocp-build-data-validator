@@ -165,6 +165,7 @@ def image_schema(file):
             Optional('subcomponent'): And(str, len),
         },
         Optional('for_payload'): bool,
+        Optional('for_release'): bool,
     })
 
 
