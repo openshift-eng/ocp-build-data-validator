@@ -2,39 +2,10 @@ from __future__ import print_function
 
 import argparse
 import sys
-import re
 from multiprocessing import Pool, cpu_count
 
 from . import format, support, schema, github, distgit
 from . import exceptions, global_session
-
-
-class NonReleaseSet(object):
-    def __init__(self):
-        self.data = set()
-
-    def cached(self, group_cfg, btype):
-        if self.data:
-            return self.data
-        else:
-            self.data = set(group_cfg['non_release'][btype])
-            return self.data
-
-
-non_release_set = NonReleaseSet()
-
-
-def skip_non_release(file, group_cfg, btype):
-    try:
-        res = re.split('.yml|.yaml', file)[0].rsplit('/', 1)
-        build_name = res[0] if len(res) == 1 else res[1]
-        if build_name in non_release_set.cached(group_cfg, btype):
-            print('Skipping validation of non_release {} {}.'.format(btype, file))
-            return True
-        else:
-            return False
-    except IndexError as error:
-        raise exceptions.ValidationFailedSkipNonRelease(error)
 
 
 def validate(file):
@@ -55,12 +26,6 @@ def validate(file):
         support.fail_validation(msg, parsed)
 
     group_cfg = support.load_group_config_for(file)
-
-    if skip_non_release(file, group_cfg, 'images'):
-        return
-
-    if skip_non_release(file, group_cfg, 'rpms'):
-        return
 
     (url, err) = github.validate(parsed, group_cfg)
     if err:
