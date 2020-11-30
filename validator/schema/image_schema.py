@@ -86,6 +86,7 @@ def image_schema(file):
         Optional('distgit'): {
             Optional('namespace'): Or(*valid_distgit_namespaces),
             Optional('component'): And(str, len),
+            Optional('bundle_component'): And(str, len),
             Optional('branch'): And(str, len),
         },
         Optional('enabled_repos'): [
