@@ -158,6 +158,7 @@ def image_schema(file):
             'bundle-dir': And(str, len),
             'registry': And(str, len),
             Optional('channel'): And(str, len),
+            Optional('image-map'): dict,
         },
         Optional('wait_for'): And(str, len),
         Optional('maintainer'): {
