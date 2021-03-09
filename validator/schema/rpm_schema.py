@@ -47,6 +47,9 @@ rpm_schema = Schema({
         'component': And(str, len),
         Optional('subcomponent'): And(str, len),
     },
+    Optional('targets'): [
+        And(str, len),
+    ],
 })
 
 

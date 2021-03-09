@@ -24,3 +24,17 @@ class TestRpmSchema(unittest.TestCase):
         }
         self.assertEqual("Missing key: 'name'",
                          rpm_schema.validate('filename', invalid_data))
+
+    def test_supports_optional_targets(self):
+        data = {
+            'content': {},
+            'name': 'my-name',
+            'owners': [
+                'owner-a',
+            ],
+            'targets': [
+                'rhaos-{MAJOR}.{MINOR}-rhel-7-candidate',
+                'rhaos-{MAJOR}.{MINOR}-rhel-8-candidate',
+            ],
+        }
+        self.assertIsNone(rpm_schema.validate('filename', data))
