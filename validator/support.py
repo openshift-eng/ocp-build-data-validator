@@ -40,6 +40,9 @@ def get_ocp_build_data_dir(file):
 
 
 def get_artifact_type(file):
+    if file == 'streams.yml':
+        return 'streams'
+
     if 'images/' in file:
         return 'image'
 
