@@ -50,6 +50,36 @@ def image_schema(file):
         Optional('content'): {
             'source': {
                 Optional('alias'): And(str, len),
+                Optional('ci_alignment'): {
+                    # parameter for the transform Dockerfile to set this user when complete
+                    Optional('final_user'): And(str, len),
+                    # mirror this image for CI to use
+                    Optional('mirror'): bool,
+                    # configuration for creating PRs to align upstream dockerfiles w/ ART
+                    Optional('streams_prs'): {
+                        # Explicitly override the buildroot to be used for CI tests
+                        Optional('ci_build_root'): And(str, len),
+                        # Default (Missing) == true.
+                        Optional('enabled'): bool,
+                        # automatically add labels to alignment PRs when created
+                        Optional('auto_label'): [And(str, len)],
+                        # Explicitly override the FROMs to be used upstream:
+                        Optional('from'): [And(str, len)],
+                        # merge_first means that child images will not get PRs opened
+                        # until this image is aligned. This helps prevent images like
+                        # openshift's base image from having 100s of PRs referencing
+                        # its PR.
+                        Optional('merge_first'): bool,
+                    },
+                    # when mirroring a base image for CI, we push and transform:
+                    # run a build to add a layer (typically to add repos)
+                    Optional('transform'): And(str, len),
+                    # transformed image landing point; streams_pr will use this as FROM
+                    Optional('update_image'): And(str, len),
+                    # push the ART image here; transform is applied to it
+                    Optional('update_image_base'): And(str, len),
+                    },
+                },
                 Optional('dockerfile'): And(str, len),
                 Optional('git'): {
                     'branch': {
@@ -64,20 +94,6 @@ def image_schema(file):
                 Optional('pkg_managers'): [
                     And(str, len, lambda s: s in ('gomod',)),
                 ],
-                Optional('ci_alignment'): {
-                    Optional('streams_prs'): {
-                        # Default (Missing) == true.
-                        Optional('enabled'): bool,
-                        'auto_label': [
-                            And(str, len),
-                        ],
-                        # merge_first means that child images will not get PRs opened
-                        # until this image is aligned. This helps prevent images like
-                        # openshift's base image from having 100s of PRs referencing
-                        # its PR.
-                        Optional('merge_first'): bool,
-                    },
-                },
             },
         },
         Optional('dependents'): [
