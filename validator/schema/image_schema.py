@@ -52,7 +52,7 @@ def image_schema(file):
                 Optional('alias'): And(str, len),
                 Optional('ci_alignment'): {
                     # parameter for the transform Dockerfile to set this user when complete
-                    Optional('final_user'): And(str, len),
+                    Optional('final_user'): Or(str, int),
                     # mirror this image for CI to use
                     Optional('mirror'): bool,
                     # configuration for creating PRs to align upstream dockerfiles w/ ART
