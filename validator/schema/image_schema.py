@@ -126,6 +126,7 @@ def image_schema(file):
             Optional('member'): Or(*valid_member_references),
         },
         Optional('labels'): {
+            Optional('summary'): And(str, len),
             Optional('License'): And(str, len),
             Optional('io.k8s.description'): And(str, len),
             Optional('io.k8s.display-name'): And(str, len),
