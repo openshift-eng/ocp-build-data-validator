@@ -1,0 +1,32 @@
+FROM quay.io/centos/centos:stream8
+LABEL name="ocp-build-data-validator" \
+  description="ocp-build-data validator container image" \
+  maintainer="OpenShift Automated Release Tooling (ART) Team <aos-team-art@redhat.com>"
+
+RUN yum install -y epel-release @python36 \
+ && yum install -y \
+    gcc \
+    git \
+    jq \
+    krb5-devel \
+    libcurl-devel \
+    libgit2 \
+    openssl-devel \
+    rpm-devel \
+    python3-{devel,pip} \
+ && yum clean all
+
+
+RUN python3 -m pip install -U pip \
+ && useradd -ms /bin/bash -u 1000 art
+
+USER art
+# These environment variables are required to install pycurl, koji, and rpkg with pip
+ENV PYCURL_SSL_LIBRARY=openssl RPM_PY_SYS=true \
+    PATH=$PATH:/home/art/.local/bin
+RUN pip3 install --user tox twine setuptools wheel codecov future \
+    https://github.com/openshift/doozer/archive/refs/tags/v1.3.4.tar.gz \
+    https://github.com/openshift/elliott/archive/refs/tags/v1.0.24.tar.gz \
+    https://github.com/openshift/ocp-build-data-validator/archive/refs/tags/v0.1.30.tar.gz
+
+CMD ["tox"]
