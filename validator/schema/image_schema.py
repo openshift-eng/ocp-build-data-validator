@@ -51,6 +51,8 @@ def image_schema(file):
             'source': {
                 Optional('alias'): And(str, len),
                 Optional('ci_alignment'): {
+                    # Default (Missing) == true.
+                    Optional('enabled'): bool,
                     # parameter for the transform Dockerfile to set this user when complete
                     Optional('final_user'): Or(str, int),
                     # mirror this image for CI to use
