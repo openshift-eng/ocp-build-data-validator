@@ -8,7 +8,9 @@ GIT_SSH_URL_REGEX = r'((git@[\w\.]+))([\w\.@\:/\-~]+)(\.git)(/)?'
 def image_schema(file):
     valid_arches = [
         'x86_64',
+        's390x',
         'ppc64le',
+        'aarch64',
     ]
 
     valid_distgit_namespaces = [
