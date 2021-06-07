@@ -62,7 +62,9 @@ def image_schema(file):
                     # configuration for creating PRs to align upstream dockerfiles w/ ART
                     Optional('streams_prs'): {
                         # Explicitly override the buildroot to be used for CI tests
-                        Optional('ci_build_root'): And(str, len),
+                        Optional('ci_build_root'): {
+                            'stream': And(str, len),
+                        },
                         # Default (Missing) == true.
                         Optional('enabled'): bool,
                         # automatically add labels to alignment PRs when created
