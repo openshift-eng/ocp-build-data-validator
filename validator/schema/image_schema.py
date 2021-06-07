@@ -134,6 +134,7 @@ def image_schema(file):
         Optional('labels'): {
             Optional('summary'): And(str, len),
             Optional('License'): And(str, len),
+            Optional('com.redhat.delivery.appregistry'): Or(bool, "true", "false"),
             Optional('io.k8s.description'): And(str, len),
             Optional('io.k8s.display-name'): And(str, len),
             Optional('io.openshift.release.operator'): And(str, len),
