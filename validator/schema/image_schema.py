@@ -152,6 +152,7 @@ def image_schema(file):
         Optional('owners'): [
             And(str, len),
         ],
+        Optional('payload_name'): And(str, len),
         Optional('push'): {
             Optional('repos'): [
                 And(str, len),
