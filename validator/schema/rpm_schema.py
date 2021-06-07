@@ -50,6 +50,9 @@ rpm_schema = Schema({
     Optional('targets'): [
         And(str, len),
     ],
+    Optional('hotfix_targets'): [
+        And(str, len),
+    ],
 })
 
 
