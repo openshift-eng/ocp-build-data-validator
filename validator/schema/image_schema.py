@@ -75,9 +75,9 @@ def image_schema(file):
                     # run a build to add a layer (typically to add repos)
                     Optional('transform'): And(str, len),
                     # transformed image landing point; streams_pr will use this as FROM
-                    Optional('update_image'): And(str, len),
+                    Optional('upstream_image'): And(str, len),
                     # push the ART image here; transform is applied to it
-                    Optional('update_image_base'): And(str, len),
+                    Optional('upstream_image_base'): And(str, len),
                 },
                 Optional('dockerfile'): And(str, len),
                 Optional('git'): {
