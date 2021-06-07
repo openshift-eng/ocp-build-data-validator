@@ -130,6 +130,7 @@ def image_schema(file):
             Optional('License'): And(str, len),
             Optional('io.k8s.description'): And(str, len),
             Optional('io.k8s.display-name'): And(str, len),
+            Optional('io.openshift.release.operator'): And(str, len),
             Optional('io.openshift.tags'): And(str, len),
             Optional('vendor'): And(str, len),
         },
