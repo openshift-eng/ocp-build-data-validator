@@ -76,6 +76,8 @@ def image_schema(file):
                         # openshift's base image from having 100s of PRs referencing
                         # its PR.
                         Optional('merge_first'): bool,
+                        # commit_prefix will add a prefix to the commit msg in ART alignment PRs
+                        Optional('commit_prefix'): str,
                     },
                     # when mirroring a base image for CI, we push and transform:
                     # run a build to add a layer (typically to add repos)
