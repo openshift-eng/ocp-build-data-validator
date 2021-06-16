@@ -112,6 +112,10 @@ def image_schema(file):
             Optional('bundle_component'): And(str, len),
             Optional('branch'): And(str, len),
         },
+        # When doozer injects USER 0 to do a yum update, this
+        # field instructs doozer to set this user afterwards
+        # in the final stage of the build.
+        Optional('final_stage_user'): Or(str, int),
         Optional('enabled_repos'): [
             And(str, len),
         ],
