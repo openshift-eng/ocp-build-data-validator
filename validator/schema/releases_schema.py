@@ -62,10 +62,10 @@ def releases_schema(file):
                                 'distgit_key': str,
                                 Optional('metadata'): {
                                     Optional('content'): RPM_CONTENT_SCHEMA,
+                                    Optional('is'): {
+                                        Regex(r'el\d+'): str
+                                    }
                                 },
-                                Optional('is'): {
-                                    Regex(r'el\d+'): str
-                                }
                             })
                         ],
                         Optional('images'): [
@@ -74,9 +74,9 @@ def releases_schema(file):
                                 Optional('metadata'): {
                                     Optional('content'): IMAGE_CONTENT_SCHEMA,
                                     Optional('dependencies'): ASSEMBLY_DEPENDENCIES,
-                                },
-                                Optional('is'): {
-                                    'nvr': str
+                                    Optional('is'): {
+                                        'nvr': str
+                                    },
                                 },
                             })
                         ]
