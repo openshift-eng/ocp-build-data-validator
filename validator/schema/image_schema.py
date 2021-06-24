@@ -59,6 +59,7 @@ IMAGE_CONTENT_SCHEMA = {
     },
 }
 
+
 def image_schema(file):
     valid_arches = [
         'x86_64',

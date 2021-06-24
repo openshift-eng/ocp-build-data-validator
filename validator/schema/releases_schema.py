@@ -1,4 +1,3 @@
-from validator import support
 from schema import Schema, Optional, And, Or, Regex, SchemaError
 from validator.schema.image_schema import IMAGE_CONTENT_SCHEMA
 from validator.schema.rpm_schema import RPM_CONTENT_SCHEMA

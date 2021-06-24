@@ -1,4 +1,4 @@
-from . import image_schema, rpm_schema, releases_schema
+from . import image_schema, rpm_schema
 from .. import support
 
 
