@@ -14,14 +14,17 @@ ASSEMBLY_DEPENDENCIES = {
     ]
 }
 
+ASSEMBLY_NAME_REGEX = Regex(r'^art\d+$')
+
 
 def releases_schema(file):
     return Schema({
         'releases': {
-            Optional(Or('stream', 'test', Regex(r'^art\d+$'))): {
+            Optional(Or('stream', 'test', ASSEMBLY_NAME_REGEX)): {
                 'assembly': {
                     Optional('basis'): {
-                        'brew_event': int
+                        Optional('brew_event'): int,
+                        Optional('assembly'): ASSEMBLY_NAME_REGEX,
                     },
                     Optional('rhcos'): {
                         'machine-os-content': {
