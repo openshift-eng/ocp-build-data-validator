@@ -8,7 +8,8 @@ GIT_SSH_URL_REGEX = r'((git@[\w\.]+))([\w\.@\:/\-~]+)(\.git)(/)?'
 ASSEMBLY_DEPENDENCIES = {
     'rpms': [
         And({
-            Optional(Regex(r'el\d+')): str,  # Each RHEL version can have its own
+            Regex(r'el\d+'): str,  # Each RHEL version can have its own
+            'why': str,  # Human description of why this is being added for historical purposes
             'non_gc_tag': str,  # Artist should provide tag they know will prevent this NVR from garbage collection.
         })
     ]
@@ -63,6 +64,7 @@ def releases_schema(file):
                         Optional('rpms'): [
                             And({
                                 'distgit_key': str,
+                                'why': str,  # Human description of why this is being added for historical purposes
                                 Optional('metadata'): {
                                     Optional('content'): RPM_CONTENT_SCHEMA,
                                     Optional('is'): {
@@ -74,6 +76,7 @@ def releases_schema(file):
                         Optional('images'): [
                             And({
                                 'distgit_key': str,
+                                'why': str,  # Human description of why this is being added for historical purposes
                                 Optional('metadata'): {
                                     Optional('content'): IMAGE_CONTENT_SCHEMA,
                                     Optional('dependencies'): ASSEMBLY_DEPENDENCIES,
