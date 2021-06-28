@@ -14,7 +14,7 @@ ASSEMBLY_DEPENDENCIES = {
     ]
 }
 
-ASSEMBLY_NAME_REGEX = Regex(r'^art\d+$')
+ASSEMBLY_NAME_REGEX = Or(Regex(r'^art\d+$'), Regex(r'^\d+\.\d+\.\d+$'))
 
 
 def releases_schema(file):
