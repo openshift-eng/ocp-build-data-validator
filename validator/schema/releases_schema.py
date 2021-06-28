@@ -33,7 +33,7 @@ def releases_schema(file):
                                 Optional('x86_64'): str,
                                 Optional('s390x'): str,
                                 Optional('ppc64le'): str,
-                                Optional('arm64'): str,
+                                Optional('aarch64'): str,
                             },
                         },
                         Optional('dependencies'): ASSEMBLY_DEPENDENCIES,
