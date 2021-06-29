@@ -10,27 +10,29 @@ valid_modes = [
     'wip',
 ]
 
-rpm_schema = Schema({
-    'content': {
-        Optional('build'): {
-            'use_source_tito_config': bool,
-            'tito_target': And(str, len),
-            'push_release_commit': bool,
-        },
-        Optional('source'): {
-            Optional('alias'): And(str, len),
-            Optional('git'): {
-                'branch': {
-                    Optional('fallback'): And(str, len),
-                    Optional('stage'): And(str, len),
-                    'target': And(str, len),
-                },
-                'url': And(str, len, Regex(GIT_SSH_URL_REGEX)),
-            },
-            'specfile': Regex(r'.+\.spec$'),
-            Optional('modifications'): [modification],
-        },
+RPM_CONTENT_SCHEMA = {
+    Optional('build'): {
+        'use_source_tito_config': bool,
+        'tito_target': And(str, len),
+        'push_release_commit': bool,
     },
+    Optional('source'): {
+        Optional('alias'): And(str, len),
+        Optional('git'): {
+            'branch': {
+                Optional('fallback'): And(str, len),
+                Optional('stage'): And(str, len),
+                'target': And(str, len),
+            },
+            'url': And(str, len, Regex(GIT_SSH_URL_REGEX)),
+        },
+        'specfile': Regex(r'.+\.spec$'),
+        Optional('modifications'): [modification],
+    },
+}
+
+rpm_schema = Schema({
+    'content': RPM_CONTENT_SCHEMA,
     Optional('distgit'): {
         Optional('branch'): And(str, len),
     },

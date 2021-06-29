@@ -21,6 +21,13 @@ def load_group_config_for(file):
     return yaml.safe_load(open(group_yaml).read())
 
 
+def load_releases_config_for(file):
+    releases_yaml = os.path.join(get_ocp_build_data_dir(file), 'releases.yml')
+    if not os.path.exists(releases_yaml):
+        return None
+    return yaml.safe_load(open(releases_yaml).read())
+
+
 def get_ocp_build_data_dir(file):
     return os.path.normpath(os.path.join(os.path.dirname(file), '..'))
 

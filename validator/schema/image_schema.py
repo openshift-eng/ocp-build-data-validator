@@ -4,6 +4,61 @@ from validator.schema.modification_schema import modification
 
 GIT_SSH_URL_REGEX = r'((git@[\w\.]+))([\w\.@\:/\-~]+)(\.git)(/)?'
 
+IMAGE_CONTENT_SCHEMA = {
+    'source': {
+        Optional('alias'): And(str, len),
+        Optional('ci_alignment'): {
+            # Default (Missing) == true.
+            Optional('enabled'): bool,
+            # parameter for the transform Dockerfile to set this user when complete
+            Optional('final_user'): Or(str, int),
+            # mirror this image for CI to use
+            Optional('mirror'): bool,
+            # configuration for creating PRs to align upstream dockerfiles w/ ART
+            Optional('streams_prs'): {
+                # Explicitly override the buildroot to be used for CI tests
+                Optional('ci_build_root'): {
+                    'stream': And(str, len),
+                },
+                # Default (Missing) == true.
+                Optional('enabled'): bool,
+                # automatically add labels to alignment PRs when created
+                Optional('auto_label'): [And(str, len)],
+                # Explicitly override the FROMs to be used upstream:
+                Optional('from'): [And(str, len)],
+                # merge_first means that child images will not get PRs opened
+                # until this image is aligned. This helps prevent images like
+                # openshift's base image from having 100s of PRs referencing
+                # its PR.
+                Optional('merge_first'): bool,
+                # commit_prefix will add a prefix to the commit msg in ART alignment PRs
+                Optional('commit_prefix'): str,
+            },
+            # when mirroring a base image for CI, we push and transform:
+            # run a build to add a layer (typically to add repos)
+            Optional('transform'): And(str, len),
+            # transformed image landing point; streams_pr will use this as FROM
+            Optional('upstream_image'): And(str, len),
+            # push the ART image here; transform is applied to it
+            Optional('upstream_image_base'): And(str, len),
+        },
+        Optional('dockerfile'): And(str, len),
+        Optional('git'): {
+            'branch': {
+                Optional('fallback'): And(str, len),
+                Optional('stage'): And(str, len),
+                'target': And(str, len),
+            },
+            'url': And(str, len, Regex(GIT_SSH_URL_REGEX)),
+        },
+        Optional('modifications'): [modification],
+        Optional('path'): str,
+        Optional('pkg_managers'): [
+            And(str, len, lambda s: s in ('gomod',)),
+        ],
+    },
+}
+
 
 def image_schema(file):
     valid_arches = [
@@ -49,60 +104,7 @@ def image_schema(file):
                 ],
             },
         },
-        Optional('content'): {
-            'source': {
-                Optional('alias'): And(str, len),
-                Optional('ci_alignment'): {
-                    # Default (Missing) == true.
-                    Optional('enabled'): bool,
-                    # parameter for the transform Dockerfile to set this user when complete
-                    Optional('final_user'): Or(str, int),
-                    # mirror this image for CI to use
-                    Optional('mirror'): bool,
-                    # configuration for creating PRs to align upstream dockerfiles w/ ART
-                    Optional('streams_prs'): {
-                        # Explicitly override the buildroot to be used for CI tests
-                        Optional('ci_build_root'): {
-                            'stream': And(str, len),
-                        },
-                        # Default (Missing) == true.
-                        Optional('enabled'): bool,
-                        # automatically add labels to alignment PRs when created
-                        Optional('auto_label'): [And(str, len)],
-                        # Explicitly override the FROMs to be used upstream:
-                        Optional('from'): [And(str, len)],
-                        # merge_first means that child images will not get PRs opened
-                        # until this image is aligned. This helps prevent images like
-                        # openshift's base image from having 100s of PRs referencing
-                        # its PR.
-                        Optional('merge_first'): bool,
-                        # commit_prefix will add a prefix to the commit msg in ART alignment PRs
-                        Optional('commit_prefix'): str,
-                    },
-                    # when mirroring a base image for CI, we push and transform:
-                    # run a build to add a layer (typically to add repos)
-                    Optional('transform'): And(str, len),
-                    # transformed image landing point; streams_pr will use this as FROM
-                    Optional('upstream_image'): And(str, len),
-                    # push the ART image here; transform is applied to it
-                    Optional('upstream_image_base'): And(str, len),
-                },
-                Optional('dockerfile'): And(str, len),
-                Optional('git'): {
-                    'branch': {
-                        Optional('fallback'): And(str, len),
-                        Optional('stage'): And(str, len),
-                        'target': And(str, len),
-                    },
-                    'url': And(str, len, Regex(GIT_SSH_URL_REGEX)),
-                },
-                Optional('modifications'): [modification],
-                Optional('path'): str,
-                Optional('pkg_managers'): [
-                    And(str, len, lambda s: s in ('gomod',)),
-                ],
-            },
-        },
+        Optional('content'): IMAGE_CONTENT_SCHEMA,
         Optional('dependents'): [
             And(str, len)
         ],

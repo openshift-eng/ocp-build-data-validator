@@ -6,6 +6,7 @@ from multiprocessing import Pool, cpu_count
 
 from . import format, support, schema, github, distgit
 from . import exceptions, global_session
+from validator.schema import releases_schema
 
 
 def validate(file):
@@ -24,6 +25,13 @@ def validate(file):
     if err:
         msg = 'Schema mismatch: {}\nReturned error: {}'.format(file, err)
         support.fail_validation(msg, parsed)
+
+    releases_cfg = support.load_releases_config_for(file)
+    if releases_cfg:
+        err = releases_schema.validate(file, releases_cfg)
+        if err:
+            msg = '\nSchema failure for releases.yml\nReturned error: {}\n\n'.format(err)
+            support.fail_validation(msg, parsed)
 
     group_cfg = support.load_group_config_for(file)
 
