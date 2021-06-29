@@ -25,6 +25,13 @@ def releases_schema(file):
                     Optional('basis'): {
                         Optional('brew_event'): int,
                         Optional('assembly'): ASSEMBLY_NAME_REGEX,
+
+                        # When generating a release payload, "oc release new" will be run with from-release.
+                        # However, the basis brew_event is still king and all images found in the nightly
+                        # must align perfectly with the basis & machine-os-content images of the assembly
+                        # or an error will be thrown. Why? Nightly records can be lost. We need to be able to
+                        # reconstruct from a source of truth.
+                        Optional('reference_nightly'): str,
                     },
                     Optional('rhcos'): {
                         'machine-os-content': {
