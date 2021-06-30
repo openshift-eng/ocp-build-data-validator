@@ -10,6 +10,7 @@ def modification(file):
 
     valid_modification_commands = [
         'update-console-sources',
+        'update-jenkins-label',
     ]
     return Schema({
                   'action': Or(*valid_modification_actions),
