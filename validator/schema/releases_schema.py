@@ -22,6 +22,7 @@ def releases_schema(file):
         'releases': {
             Optional(Or('stream', 'test', ASSEMBLY_NAME_REGEX)): {
                 'assembly': {
+                    Optional('type'): Or('standard', 'custom'),
                     Optional('basis'): {
                         Optional('brew_event'): int,
                         Optional('assembly'): ASSEMBLY_NAME_REGEX,
