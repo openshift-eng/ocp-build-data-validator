@@ -29,7 +29,14 @@ def load_releases_config_for(file):
 
 
 def get_ocp_build_data_dir(file):
-    return os.path.normpath(os.path.join(os.path.dirname(file), '..'))
+    file_path = os.path.dirname(file)
+    if os.path.exists(os.path.join(file_path, 'group.yml')):
+        # File like releases.yml is already co-resident with group.yml
+        obd_dir = file_path
+    else:
+        # image and rpm metas
+        obd_dir = os.path.join(file_path, '..')
+    return os.path.normpath(obd_dir)
 
 
 def get_artifact_type(file):
@@ -38,6 +45,9 @@ def get_artifact_type(file):
 
     if 'rpms/' in file:
         return 'rpm'
+
+    if 'releases.yml' in file:
+        return 'ignore'
 
     return '???'
 
