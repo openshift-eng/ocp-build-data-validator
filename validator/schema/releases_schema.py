@@ -27,13 +27,13 @@ def releases_schema(file):
                         Optional('brew_event'): int,
                         Optional('assembly'): ASSEMBLY_NAME_REGEX,
 
-                        # If specified, when generating a release payload, "oc release new" will be run with from-release.
+                        # If specified, when generating a release payload, "oc adm release new" will be run with from-release.
                         # However, the basis brew_event is still king and all images found in the nightlies
                         # must align perfectly with the basis & machine-os-content images of the assembly
                         # or an error will be thrown. Why? Nightly records can be lost. We need to be able to
                         # reconstruct from a source of truth.
                         # If not specified, oc release new will not be passed from-release.
-                        Optional('reference_nightly'): {
+                        Optional('reference_releases'): {
                             # Nightly name for each arch in the release.
                             Optional('x86_64'): str,
                             Optional('s390x'): str,
