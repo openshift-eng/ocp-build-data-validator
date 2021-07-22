@@ -1,4 +1,4 @@
-from . import image_schema, rpm_schema
+from . import image_schema, rpm_schema, streams_schema
 from .. import support
 
 
@@ -9,6 +9,7 @@ def ignore_validate(*args, **kwargs):
 
 def validate(file, data):
     return {
+        'streams': streams_schema.validate,
         'image': image_schema.validate,
         'rpm': rpm_schema.validate,
         'ignore': ignore_validate,

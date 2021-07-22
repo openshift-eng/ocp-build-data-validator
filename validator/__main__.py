@@ -33,6 +33,9 @@ def validate(file):
             msg = '\nSchema failure for releases.yml\nReturned error: {}\n\n'.format(err)
             support.fail_validation(msg, parsed)
 
+    if file == 'streams.yml':
+        return
+
     group_cfg = support.load_group_config_for(file)
 
     (url, err) = github.validate(parsed, group_cfg)
