@@ -14,7 +14,7 @@ ASSEMBLY_DEPENDENCIES = {
     ]
 }
 
-ASSEMBLY_NAME_REGEX = Or(Regex(r'^art\d+$'), Regex(r'^\d+\.\d+\.\d+$'))
+ASSEMBLY_NAME_REGEX = Or(Regex(r'^art\d+$'), Regex(r'^\d+\.\d+\.\d+$'), Regex(r'^rc\.\d+$'), Regex(r'^fc\.\d+$'))
 
 
 def releases_schema(file):
@@ -22,7 +22,7 @@ def releases_schema(file):
         'releases': {
             Optional(Or('stream', 'test', ASSEMBLY_NAME_REGEX)): {
                 'assembly': {
-                    Optional('type'): Or('standard', 'custom'),
+                    Optional('type'): Or('standard', 'custom', 'candidate'),
                     Optional('basis'): {
                         Optional('brew_event'): int,
                         Optional('assembly'): ASSEMBLY_NAME_REGEX,
