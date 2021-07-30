@@ -41,6 +41,12 @@ def releases_schema(file):
                             Optional('aarch64'): str,
                         },
                     },
+                    Optional('permits'): [  # A list of issues that this assembly permits during payload generation.
+                        And({
+                            'code': Regex('[A-Z0-9_]+'),
+                            'component': str,  # A component name or '*'
+                        })
+                    ],
                     Optional('rhcos'): {
                         'machine-os-content': {
                             'images': {
