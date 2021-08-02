@@ -1,8 +1,6 @@
 from schema import Schema, Optional, And, SchemaError
 
-
-def streams_schema(file):
-    return Schema({
+STREAMS_SCHEMA = {
         And(str, len): {
             'image': And(str, len),
             'upstream_image_base': And(str, len),
@@ -10,11 +8,15 @@ def streams_schema(file):
             Optional('mirror'): bool,
             Optional('transform'): And(str, len),
         },
-    })
+    }
 
 
-def validate(file, data):
+def streams_schema():
+    return Schema(STREAMS_SCHEMA)
+
+
+def validate(_, data):
     try:
-        streams_schema(file).validate(data)
+        streams_schema().validate(data)
     except SchemaError as err:
         return '{}'.format(err)

@@ -1,6 +1,7 @@
 from schema import Schema, Optional, And, Or, Regex, SchemaError
 from validator.schema.image_schema import IMAGE_CONTENT_SCHEMA
 from validator.schema.rpm_schema import RPM_CONTENT_SCHEMA
+from validator.schema.streams_schema import STREAMS_SCHEMA
 
 GIT_SSH_URL_REGEX = r'((git@[\w\.]+))([\w\.@\:/\-~]+)(\.git)(/)?'
 
@@ -59,6 +60,7 @@ def releases_schema(file):
                         },
                         Optional('dependencies'): ASSEMBLY_DEPENDENCIES,
                     },
+                    Optional('streams'): STREAMS_SCHEMA,
                     Optional('group'): {
                         Optional('arches'): [
                             Or('x86_64', 'ppc64le', 's390x', 'aarch64')
