@@ -53,7 +53,7 @@ IMAGE_CONTENT_SCHEMA = {
         },
         Optional('modifications'): [modification],
         Optional('path'): str,
-        Optional('pkg_managers'): [
+        Optional(Or('pkg_managers', 'pkg_managers!')): [
             And(str, len, lambda s: s in ('gomod',)),
         ],
     },

@@ -100,6 +100,7 @@ def releases_schema(file):
                                 'distgit_key': str,
                                 'why': str,  # Human description of why this is being added for historical purposes
                                 Optional('metadata'): {
+                                    Optional(Or('container_yaml', 'container_yaml!')): object,
                                     Optional('content'): IMAGE_CONTENT_SCHEMA,
                                     Optional('dependencies'): ASSEMBLY_DEPENDENCIES,
                                     Optional('is'): {
