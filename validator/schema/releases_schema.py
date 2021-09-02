@@ -80,6 +80,7 @@ def releases_schema(file):
                             Optional('extras'): int,
                             Optional('metadata'): int,
                         },
+                        Optional('release_jira'): str,
                         Optional('dependencies'): ASSEMBLY_DEPENDENCIES,
                     },
                     Optional('members'): {
