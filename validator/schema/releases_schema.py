@@ -81,6 +81,7 @@ def releases_schema(file):
                             Optional('metadata'): int,
                         },
                         Optional('dependencies'): ASSEMBLY_DEPENDENCIES,
+                        Optional('release_jira'): str,
                     },
                     Optional('members'): {
                         Optional('rpms'): [
