@@ -16,6 +16,13 @@ ASSEMBLY_DEPENDENCIES = {
 }
 
 ASSEMBLY_NAME_REGEX = Or(Regex(r'^art\d+$'), Regex(r'^\d+\.\d+\.\d+$'), Regex(r'^rc\.\d+$'), Regex(r'^fc\.\d+$'))
+ARCHES = Or('x86_64', 'ppc64le', 's390x', 'aarch64')
+ARCHES_DICT = {
+    Optional('x86_64'): str,
+    Optional('s390x'): str,
+    Optional('ppc64le'): str,
+    Optional('aarch64'): str,
+}
 
 
 def releases_schema(file):
@@ -34,13 +41,7 @@ def releases_schema(file):
                         # or an error will be thrown. Why? Nightly records can be lost. We need to be able to
                         # reconstruct from a source of truth.
                         # If not specified, oc release new will not be passed from-release.
-                        Optional('reference_releases'): {
-                            # Nightly name for each arch in the release.
-                            Optional('x86_64'): str,
-                            Optional('s390x'): str,
-                            Optional('ppc64le'): str,
-                            Optional('aarch64'): str,
-                        },
+                        Optional('reference_releases'): ARCHES_DICT,  # per-arch nightly names
                     },
                     Optional('permits'): [  # A list of issues that this assembly permits during payload generation.
                         And({
@@ -50,26 +51,18 @@ def releases_schema(file):
                     ],
                     Optional('rhcos'): {
                         'machine-os-content': {
-                            'images': {
-                                # pullspecs for arch specific images
-                                Optional('x86_64'): str,
-                                Optional('s390x'): str,
-                                Optional('ppc64le'): str,
-                                Optional('aarch64'): str,
-                            },
+                            'images': ARCHES_DICT,  # pullspecs for arch specific images
                         },
                         Optional('dependencies'): ASSEMBLY_DEPENDENCIES,
                     },
                     Optional('streams'): STREAMS_SCHEMA,
                     Optional('group'): {
-                        Optional('arches'): [
-                            Or('x86_64', 'ppc64le', 's390x', 'aarch64')
-                        ],
+                        Optional('arches'): [ARCHES],
                         Optional('repos'): {
                             Regex('[a-z0-9.-]+'): {
                                 'conf': {
                                     'baseurl': {
-                                        Or('x86_64', 'ppc64le', 's390x', 'aarch64'): str
+                                        ARCHES: str,
                                     }
                                 }
                             }
@@ -101,7 +94,7 @@ def releases_schema(file):
                                 'distgit_key': str,
                                 'why': str,  # Human description of why this is being added for historical purposes
                                 Optional('metadata'): {
-                                    Optional(Or('container_yaml', 'container_yaml!')): object,
+                                    Optional('container_yaml'): object,
                                     Optional('content'): IMAGE_CONTENT_SCHEMA,
                                     Optional('dependencies'): ASSEMBLY_DEPENDENCIES,
                                     Optional('is'): {
