@@ -122,8 +122,32 @@ def releases_schema(file):
     })
 
 
+def _demerge(data):
+    # recursively turn dict meta-attrs ("!?-") that are merged for inheritance into regular attrs just for schema validation
+    if type(data) in [bool, int, float, str, bytes, type(None)]:
+        return data
+
+    if type(data) is list:
+        return [_demerge(item) for item in data]
+
+    if type(data) is dict:
+        new_data = {}
+        for name, value in data.items():
+            if name[-1] in ("!", "?", "-"):
+                merged_name = name[:-1]
+                if merged_name in data:
+                    raise SchemaError(f"Cannot specify '{name}' and '{merged_name}' attrs in same dict")
+                name = merged_name
+
+            new_data[name] = _demerge(value)
+
+        return new_data
+
+    raise TypeError(f"Unexpected value type: {type(data)}: {data}")
+
+
 def validate(file, data):
     try:
-        releases_schema(file).validate(data)
+        releases_schema(file).validate(_demerge(data))
     except SchemaError as err:
         return '{}'.format(err)
