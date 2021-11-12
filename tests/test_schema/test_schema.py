@@ -1,5 +1,5 @@
 import unittest
-import flexmock
+from flexmock import flexmock
 
 from validator.schema import image_schema, rpm_schema, validate
 
