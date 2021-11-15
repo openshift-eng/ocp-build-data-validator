@@ -1,6 +1,6 @@
 import sys
 import unittest
-import flexmock
+from flexmock import flexmock
 from validator import support, exceptions
 
 
