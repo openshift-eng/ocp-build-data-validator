@@ -4,6 +4,7 @@ from validator.schema.rpm_schema import RPM_CONTENT_SCHEMA
 from validator.schema.streams_schema import STREAMS_SCHEMA
 
 GIT_SSH_URL_REGEX = r'((git@[\w\.]+))([\w\.@\:/\-~]+)(\.git)(/)?'
+UPGRADE_EDGES_REGEX = r'\d+\.\d+\.\d+(?:-[fr]c\.\d+)?(,\d+\.\d+\.\d+(?:-[fr]c\.\d+)?)+'
 
 ASSEMBLY_DEPENDENCIES = {
     'rpms': [
@@ -75,6 +76,7 @@ def releases_schema(file):
                         },
                         Optional('dependencies'): ASSEMBLY_DEPENDENCIES,
                         Optional('release_jira'): str,
+                        Optional('upgrades'): Regex(UPGRADE_EDGES_REGEX),
                     },
                     Optional('members'): {
                         Optional('rpms'): [
