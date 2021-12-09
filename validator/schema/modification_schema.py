@@ -11,6 +11,7 @@ def modification(file):
     valid_modification_commands = [
         'update-console-sources',
         'update-jenkins-label',
+        'upload-coreos-iso-to-lookaside-cache',
     ]
     return Schema({
                   'action': Or(*valid_modification_actions),
