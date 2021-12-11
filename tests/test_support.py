@@ -4,6 +4,13 @@ from flexmock import flexmock
 from validator import support, exceptions
 
 
+group_cfg = {
+    'urls': {'cgit': 'http://my.cgit.endpoint'},
+    'branch': 'rhaos-{MAJOR}.{MINOR}-rhel-999',
+    'vars': {'MAJOR': 4, 'MINOR': 10},
+}
+
+
 class TestSupport(unittest.TestCase):
 
     def test_fail_validation(self):
@@ -124,6 +131,20 @@ class TestSupport(unittest.TestCase):
             .should_receive('head')
             .and_raise(support.requests.exceptions.ConnectionError))
         self.assertFalse(support.resource_is_reacheable('http://a.random/url'))
+
+    def test_namespace(self):
+        self.assertEqual(support.get_namespace({}, 'images/foo.yml'), 'containers')
+        self.assertEqual(support.get_namespace({}, 'rpms/bar.yml'), 'rpms')
+        self.assertEqual(support.get_namespace({}, 'group.yml'), '???')
+        self.assertEqual(support.get_namespace({'distgit': {'namespace': 'apbs'}}, 'images/yadda.yml'), 'apbs')
+
+    def test_repository_name(self):
+        self.assertEqual(support.get_repository_name('images/yadda.yml'), 'yadda')
+        self.assertEqual(support.get_repository_name('images/foo.bar.yml'), 'foo')
+
+    def test_distgit_branch(self):
+        self.assertEqual(support.get_distgit_branch({}, group_cfg), 'rhaos-4.10-rhel-999')
+        self.assertEqual(support.get_distgit_branch({'distgit': {'branch': 'brunchbar'}}, group_cfg), 'brunchbar')
 
 
 def mock_builtin_open(file, contents):
