@@ -14,7 +14,7 @@ class TestCgit(unittest.TestCase):
         }
 
         (flexmock(cgit.support)
-            .should_receive('resource_is_reacheable')
+            .should_receive('resource_is_reachable')
             .and_return(True))
 
         (flexmock(cgit.support)
@@ -47,9 +47,9 @@ class TestCgit(unittest.TestCase):
         self.assertEqual(url, 'http://my.cgit.endpoint/containers/x')
         self.assertIsNone(err)
 
-    def test_cgit_endpoint_not_reacheable(self):
+    def test_cgit_endpoint_not_reachable(self):
         (flexmock(cgit.support)
-            .should_receive('resource_is_reacheable')
+            .should_receive('resource_is_reachable')
             .and_return(False))
 
         (url, err) = cgit.validate('images/my-img.yml', {}, self.group_cfg)
@@ -64,7 +64,7 @@ class TestCgit(unittest.TestCase):
 
         (url, err) = cgit.validate('images/my-img.yml', {}, self.group_cfg)
         self.assertEqual(url, 'http://my.cgit.endpoint/containers/my-img')
-        self.assertEqual(err, ('Corresponding DistGit repo was not found.\n'
+        self.assertEqual(err, ('Repo was not found in CGit cache.\n'
                                "If you didn't request a DistGit repo yet, "
                                'please check '
                                'https://mojo.redhat.com/docs/DOC-1168290\n'
@@ -120,4 +120,4 @@ class TestCgit(unittest.TestCase):
 
         (url, err) = cgit.validate('images/my-img.yml', {}, self.group_cfg)
         self.assertEqual(url, 'http://my.cgit.endpoint/containers/my-img')
-        self.assertEqual(err, 'Branch rhaos-4.2-rhel-999 not found on DistGit')
+        self.assertEqual(err, 'Branch rhaos-4.2-rhel-999 not found in CGit cache')

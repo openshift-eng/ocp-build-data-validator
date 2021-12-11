@@ -85,7 +85,7 @@ def resource_exists(url):
         return 200 <= requests.head(url).status_code < 400
 
 
-def resource_is_reacheable(url):
+def resource_is_reachable(url):
     try:
         requests.head(url)
         return True

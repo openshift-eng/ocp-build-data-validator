@@ -121,16 +121,16 @@ class TestSupport(unittest.TestCase):
                 .and_return(flexmock(status_code=status_code)))
             self.assertFalse(support.resource_exists('http://a.random/url'))
 
-    def test_resource_is_reacheable(self):
+    def test_resource_is_reachable(self):
         (flexmock(support.requests)
             .should_receive('head')
             .replace_with(lambda _: None))
-        self.assertTrue(support.resource_is_reacheable('http://a.random/url'))
+        self.assertTrue(support.resource_is_reachable('http://a.random/url'))
 
         (flexmock(support.requests)
             .should_receive('head')
             .and_raise(support.requests.exceptions.ConnectionError))
-        self.assertFalse(support.resource_is_reacheable('http://a.random/url'))
+        self.assertFalse(support.resource_is_reachable('http://a.random/url'))
 
     def test_namespace(self):
         self.assertEqual(support.get_namespace({}, 'images/foo.yml'), 'containers')

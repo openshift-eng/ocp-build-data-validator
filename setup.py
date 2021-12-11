@@ -1,5 +1,8 @@
 import setuptools
 
+with open('./requirements.txt') as f:
+    INSTALL_REQUIRES = f.read().splitlines()
+
 setuptools.setup(
     name='rh-ocp-build-data-validator',
     author='AOS ART Team',
@@ -15,4 +18,5 @@ setuptools.setup(
         'validate-ocp-build-data = validator.__main__:main'
     ]},
     include_package_data=True,
-    install_requires=['pyyaml', 'schema', 'requests'])
+    install_requires=INSTALL_REQUIRES
+)
