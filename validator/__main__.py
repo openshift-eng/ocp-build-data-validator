@@ -1,10 +1,9 @@
-from __future__ import print_function
-
 import argparse
+import atexit
 import sys
 from multiprocessing import Pool, cpu_count
 
-from . import format, support, schema, github, distgit
+from . import format, support, schema, github, distgit, cgit
 from . import exceptions, global_session
 from validator.schema import releases_schema
 
@@ -50,6 +49,12 @@ def validate(file):
                'Returned error: {}').format(file, url, err)
         support.fail_validation(msg, parsed)
 
+    (url, err) = cgit.validate(file, parsed, group_cfg)
+    if err:
+        msg = ('CGit validation failed for {} ({})\n'
+               'Returned error: {}').format(file, url, err)
+        support.fail_validation(msg, parsed)
+
 
 def main():
     parser = argparse.ArgumentParser(
@@ -73,15 +78,14 @@ def main():
     else:
         try:
             rc = 0
-            Pool(cpu_count(),
-                 initializer=global_session.set_global_session).map(
-                 validate, args.files)
+            pool = Pool(cpu_count(), initializer=global_session.set_global_session)
+            atexit.register(pool.close)
+            pool.map(validate, args.files)
         except exceptions.ValidationFailedWIP as e:
             print(str(e), file=sys.stderr)
-
         except (exceptions.ValidationFailed, Exception) as e:
             print(str(e), file=sys.stderr)
-            rc += 1
+            rc = 1
 
         finally:
             exit(rc)

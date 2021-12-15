@@ -1,59 +1,57 @@
-import os
+import pygit2
+from tempfile import TemporaryDirectory
+
 from . import support
 
 
 def validate(file, data, group_cfg):
-    endpoint = get_cgit_endpoint(group_cfg)
-    namespace = get_namespace(data, support.get_artifact_type(file))
-    repository = get_repository_name(file)
+    # Example url: git://pkgs.devel.redhat.com/containers/kuryr-cni.git
+    namespace = support.get_namespace(data, file)
+    repository = support.get_repository_name(file)
+    distgit_host = 'pkgs.devel.redhat.com'
+    repo_name = f'{namespace}/{repository}'
+    repo_url = f'git://{distgit_host}/{namespace}/{repository}.git'
+    branch = support.get_distgit_branch(data, group_cfg)
 
-    url = '{}/{}/{}'.format(endpoint, namespace, repository)
+    if not support.resource_is_reachable(f'https://{distgit_host}'):
+        return repo_url, f'This validation must run from a network with access to {distgit_host}'
 
-    if not support.resource_is_reacheable(endpoint):
-        return (url, ('This validation must run from a network '
-                      'with access to {}'.format(endpoint)))
+    repo_dir = TemporaryDirectory()
 
-    if not support.resource_exists(url):
-        return (url, ('Corresponding DistGit repo was not found.\n'
-                      "If you didn't request a DistGit repo yet, "
-                      'please check https://mojo.redhat.com/docs/DOC-1168290\n'
-                      'But if you already obtained one, make sure its name '
-                      'matches the YAML filename'))
+    repo = make_repo(repo_name, repo_url, repo_dir.name)
 
-    branch = get_distgit_branch(data, group_cfg)
-    if not branch_exists(branch, url):
-        return (url, ('Branch {} not found on DistGit'.format(branch)))
+    remote = repo.remotes[repo_name]
 
-    return (url, None)
+    if not repo_exists(remote):
+        return repo_url, 'DistGit repository does not exist'
 
+    if not branch_exists(remote, branch):
+        return repo_url, f'Did not find {branch} in DistGit'
 
-def get_cgit_endpoint(group_cfg):
-    return group_cfg['urls']['cgit']
+    return repo_url, None
 
 
-def get_namespace(data, artifact_type):
-    if 'distgit' in data and 'namespace' in data['distgit']:
-        return data['distgit']['namespace']
-
-    return {'image': 'containers', 'rpm': 'rpms'}.get(artifact_type, '???')
-
-
-def get_repository_name(file):
-    return os.path.basename(file).split('.')[0]
+def make_repo(name, url, repo_dir):
+    repo = pygit2.init_repository(repo_dir)
+    repo.remotes.create(name, url)
+    return repo
 
 
-def get_distgit_branch(data, group_cfg):
-    if 'distgit' in data and 'branch' in data['distgit']:
-        return replace_vars(data['distgit']['branch'], group_cfg['vars'])
-
-    return replace_vars(group_cfg['branch'], group_cfg['vars'])
-
-
-def replace_vars(text, vars_map):
-    return (text
-            .replace('{MAJOR}', str(vars_map['MAJOR']))
-            .replace('{MINOR}', str(vars_map['MINOR'])))
+def repo_exists(remote):
+    try:
+        remote.connect()
+        return True
+    except pygit2.GitError:
+        return False
 
 
-def branch_exists(branch, url):
-    return support.resource_exists('{}/log?h={}'.format(url, branch))
+def branch_exists(remote, branch):
+    remote_branches = remote.ls_remotes()
+    ref = f'refs/heads/{branch}'
+    branch_found = False
+
+    for remote_branch in remote_branches:
+        if remote_branch['name'] == ref:
+            branch_found = True
+            break
+    return branch_found
