@@ -27,6 +27,7 @@ readme-renderer==26.0
 requests==2.23.0
 requests-toolbelt==0.9.1
 rpm==0.0.2
+ruamel.yaml
 schema==0.7.2
 SecretStorage==3.1.2
 six==1.15.0
