@@ -32,7 +32,7 @@ def validate(file):
             msg = '\nSchema failure for releases.yml\nReturned error: {}\n\n'.format(err)
             support.fail_validation(msg, parsed)
 
-    if file == 'streams.yml':
+    if support.get_artifact_type(file) not in ['image', 'rpm']:
         return
 
     group_cfg = support.load_group_config_for(file)

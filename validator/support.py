@@ -1,6 +1,6 @@
 import os
 import requests
-import yaml
+from ruamel.yaml import YAML
 
 from . import exceptions
 from . import global_session
@@ -18,14 +18,14 @@ def is_disabled(parsed):
 
 def load_group_config_for(file):
     group_yaml = os.path.join(get_ocp_build_data_dir(file), 'group.yml')
-    return yaml.safe_load(open(group_yaml).read())
+    return YAML(typ='safe').load(open(group_yaml).read())
 
 
 def load_releases_config_for(file):
     releases_yaml = os.path.join(get_ocp_build_data_dir(file), 'releases.yml')
     if not os.path.exists(releases_yaml):
         return None
-    return yaml.safe_load(open(releases_yaml).read())
+    return YAML(typ='safe').load(open(releases_yaml).read())
 
 
 def get_ocp_build_data_dir(file):
@@ -66,7 +66,7 @@ def get_artifact_type(file):
 
 def get_valid_streams_for(file):
     streams_yaml = os.path.join(get_ocp_build_data_dir(file), 'streams.yml')
-    return set(yaml.safe_load(open(streams_yaml).read()).keys())
+    return set(YAML(typ='safe').load(open(streams_yaml).read()).keys())
 
 
 def get_valid_member_references_for(file):

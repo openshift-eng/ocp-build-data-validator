@@ -13,7 +13,7 @@ class TestFormat(unittest.TestCase):
         """
         (parsed, err) = format.validate(invalid_yaml)
         self.assertIsNone(parsed)
-        self.assertEqual(err, "expected <block end>, but found '-'")
+        self.assertEqual(err, "did not find expected key")
 
     def test_valid_yaml(self):
         valid_yaml = """
@@ -26,3 +26,12 @@ class TestFormat(unittest.TestCase):
         (parsed, err) = format.validate(valid_yaml)
         self.assertEqual(parsed, {'key': [1, '2'], 'obj': {'lst': [1, '2']}})
         self.assertIsNone(err)
+
+    def test_duplicated_yaml(self):
+        yml = """
+        key: value
+        key: value
+        """
+        (parsed, err) = format.validate(yml)
+        self.assertIsNone(parsed)
+        self.assertEqual(err, 'found duplicate key "key" with value "value" (original value: "value")')
