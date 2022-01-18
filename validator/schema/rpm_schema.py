@@ -26,7 +26,7 @@ RPM_CONTENT_SCHEMA = {
             },
             'url': And(str, len, Regex(GIT_SSH_URL_REGEX)),
         },
-        'specfile': Regex(r'.+\.spec$'),
+        Optional('specfile'): Regex(r'.+\.spec$'),
         Optional('modifications'): [modification],
     },
 }
