@@ -77,6 +77,10 @@ def releases_schema(file):
                         Optional('dependencies'): ASSEMBLY_DEPENDENCIES,
                         Optional('release_jira'): str,
                         Optional('upgrades'): Regex(UPGRADE_EDGES_REGEX),
+                        Optional('cachito'): {
+                            Optional('enabled'): bool,
+                            Optional('flags'): [str],
+                        },
                     },
                     Optional('members'): {
                         Optional('rpms'): [
