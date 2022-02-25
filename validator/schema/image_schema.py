@@ -202,6 +202,10 @@ def image_schema(file):
         Optional('for_payload'): bool,
         Optional('for_release'): bool,
         Optional('name_in_bundle'): And(str, len),
+        Optional('cachito'): {
+            Optional('enabled'): bool,
+            Optional('flags'): [str],
+        },
     })
 
 
