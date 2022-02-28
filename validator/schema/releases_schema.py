@@ -58,6 +58,7 @@ def releases_schema(file):
                     },
                     Optional('streams'): STREAMS_SCHEMA,
                     Optional('group'): {
+                        # TODO: just pull this out and validate group.yml as a whole already
                         Optional('arches'): [ARCHES],
                         Optional('repos'): {
                             Regex('[a-z0-9.-]+'): {
@@ -81,6 +82,7 @@ def releases_schema(file):
                             Optional('enabled'): bool,
                             Optional('flags'): [str],
                         },
+                        Optional('check_golang_versions'): Or('no', 'exact', 'x.y'),
                     },
                     Optional('members'): {
                         Optional('rpms'): [
