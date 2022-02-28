@@ -50,6 +50,12 @@ def releases_schema(file):
                             'component': str,  # A component name or '*'
                         })
                     ],
+                    Optional('promotion_permits'): [  # A list of issues that this assembly permits during payload promotion.
+                        And({
+                            'code': Regex('[A-Z0-9_]+'),
+                            'why': str,  # A component name or '*'
+                        })
+                    ],
                     Optional('rhcos'): {
                         'machine-os-content': {
                             'images': ARCHES_DICT,  # pullspecs for arch specific images
