@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "releases": "Releases",
+  "description": "Releases object contains information on every release that ART promotes as GA and every custom hotfix it delivers to customers.",
+  "type": "object",
+  "properties": {
+    "releases": {
+      "description": "An object containing all releases in a group.",
+      "type": "object",
+      "patternProperties": {
+        "^stream$|^test$|^art\\d+$|^\\d+\\.\\d+\\.\\d+$|^[fr]c\\.\\d+$": {
+          "$ref": "release.schema.json"
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "releases"
+  ]
+}

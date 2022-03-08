@@ -1,0 +1,132 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "arches": {
+      "$ref": "arches.schema.json"
+    },
+    "arches!": {
+      "$ref": "#/properties/arches"
+    },
+    "arches?": {
+      "$ref": "#/properties/arches"
+    },
+    "arches-": {},
+    "repos": {
+      "$ref": "repos.schema.json"
+    },
+    "repos!": {
+      "$ref": "#/properties/repos"
+    },
+    "repos?": {
+      "$ref": "#/properties/repos"
+    },
+    "repos-": {},
+    "advisories": {
+      "type": "object",
+      "properties": {
+        "image": {
+          "type": "integer"
+        },
+        "image!": {
+          "$ref": "#/properties/advisories/properties/image"
+        },
+        "image?": {
+          "$ref": "#/properties/advisories/properties/image"
+        },
+        "image-": {},
+        "rpm": {
+          "type": "integer"
+        },
+        "rpm!": {
+          "$ref": "#/properties/advisories/properties/rpm"
+        },
+        "rpm?": {
+          "$ref": "#/properties/advisories/properties/rpm"
+        },
+        "rpm-": {},
+        "extras": {
+          "type": "integer"
+        },
+        "extras!": {
+          "$ref": "#/properties/advisories/properties/extras"
+        },
+        "extras?": {
+          "$ref": "#/properties/advisories/properties/extras"
+        },
+        "extras-": {},
+        "metadata": {
+          "type": "integer"
+        },
+        "metadata!": {
+          "$ref": "#/properties/advisories/properties/metadata"
+        },
+        "metadata?": {
+          "$ref": "#/properties/advisories/properties/metadata"
+        },
+        "metadata-": {}
+      },
+      "additionalProperties": false
+    },
+    "advisories!": {
+      "$ref": "#/properties/advisories"
+    },
+    "advisories?": {
+      "$ref": "#/properties/advisories"
+    },
+    "advisories-": {},
+    "dependencies": {
+      "$ref": "assembly_dependencies.schema.json"
+    },
+    "dependencies!": {
+      "$ref": "#/properties/dependencies"
+    },
+    "dependencies?": {
+      "$ref": "#/properties/dependencies"
+    },
+    "dependencies-": {},
+    "release_jira": {
+      "type": "string",
+      "minLength": 1
+    },
+    "release_jira!": {
+      "$ref": "#/properties/release_jira"
+    },
+    "release_jira?": {
+      "$ref": "#/properties/release_jira"
+    },
+    "release_jira-": {},
+    "upgrades": {
+      "type": "string"
+    },
+    "upgrades!": {
+      "$ref": "#/properties/upgrades"
+    },
+    "upgrades?": {
+      "$ref": "#/properties/upgrades"
+    },
+    "upgrades-": {},
+    "check_golang_versions": {
+      "type": "boolean"
+    },
+    "check_golang_versions!": {
+      "$ref": "#/properties/check_golang_versions"
+    },
+    "check_golang_versions?": {
+      "$ref": "#/properties/check_golang_versions"
+    },
+    "check_golang_versions-": {},
+    "cachito": {
+      "description": "Cachito integration configuration",
+      "$ref": "cachito.schema.json"
+    },
+    "cachito!": {
+      "$ref": "#/properties/cachito"
+    },
+    "cachito?": {
+      "$ref": "#/properties/cachito"
+    },
+    "cachito-": {}
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,8 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "array",
+    "items": {
+        "type": "string",
+        "enum": ["x86_64", "s390x", "ppc64le", "aarch64"]
+    }
+}
