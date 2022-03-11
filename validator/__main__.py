@@ -25,13 +25,6 @@ def validate(file):
         msg = 'Schema mismatch: {}\nReturned error: {}'.format(file, err)
         support.fail_validation(msg, parsed)
 
-    releases_cfg = support.load_releases_config_for(file)
-    if releases_cfg:
-        err = releases_schema.validate(file, releases_cfg)
-        if err:
-            msg = '\nSchema failure for releases.yml\nReturned error: {}\n\n'.format(err)
-            support.fail_validation(msg, parsed)
-
     if support.get_artifact_type(file) not in ['image', 'rpm']:
         return
 
