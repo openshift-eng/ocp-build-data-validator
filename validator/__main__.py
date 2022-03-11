@@ -5,12 +5,9 @@ from multiprocessing import Pool, cpu_count
 
 from . import format, support, schema, github, distgit, cgit
 from . import exceptions, global_session
-from validator.schema import releases_schema
 
 
 def validate(file):
-    print('Validating {}'.format(file))
-
     (parsed, err) = format.validate(open(file).read())
     if err:
         msg = '{} is not a valid YAML\nReturned error: {}'.format(file, err)
@@ -25,14 +22,8 @@ def validate(file):
         msg = 'Schema mismatch: {}\nReturned error: {}'.format(file, err)
         support.fail_validation(msg, parsed)
 
-    releases_cfg = support.load_releases_config_for(file)
-    if releases_cfg:
-        err = releases_schema.validate(file, releases_cfg)
-        if err:
-            msg = '\nSchema failure for releases.yml\nReturned error: {}\n\n'.format(err)
-            support.fail_validation(msg, parsed)
-
     if support.get_artifact_type(file) not in ['image', 'rpm']:
+        print(f'✅ Validated {file}')
         return
 
     group_cfg = support.load_group_config_for(file)
@@ -55,6 +46,8 @@ def validate(file):
                'Returned error: {}').format(file, url, err)
         support.fail_validation(msg, parsed)
 
+    print(f'✅ Validated {file}')
+
 
 def main():
     parser = argparse.ArgumentParser(
@@ -71,7 +64,7 @@ def main():
                         action='store_true',
                         help='Run in single thread, so code.interact() works')
     args = parser.parse_args()
-
+    print(f"Validating {len(args.files)} file(s)...")
     if args.single_thread:
         for f in args.files:
             validate(f)

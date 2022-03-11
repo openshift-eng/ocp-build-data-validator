@@ -6,4 +6,4 @@ def validate(contents):
     try:
         return (yaml.load(contents), None)
     except Exception as err:
-        return (None, '{}'.format(err.problem))
+        return (None, '{}'.format(err))

@@ -6,6 +6,7 @@ from jsonschema.validators import validator_for
 
 from schema import SchemaError
 
+
 if sys.version_info < (3, 9):
     # importlib.resources either doesn't exist or lacks the files()
     # function, so use the PyPI version:
@@ -13,7 +14,6 @@ if sys.version_info < (3, 9):
 else:
     # importlib.resources has files(), so use that:
     import importlib.resources as importlib_resources
-
 
 def _demerge(data):
     # recursively turn dict meta-attrs ("!?-") that are merged for inheritance into regular attrs just for schema validation
@@ -37,7 +37,6 @@ def _demerge(data):
         return new_data
 
     raise TypeError(f"Unexpected value type: {type(data)}: {data}")
-
 
 def validate(_, data):
     # Load Json schemas
