@@ -1,0 +1,88 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "distgit_key": {
+      "type": "string",
+      "minLength": 1
+    },
+    "why": {
+      "type": "string",
+      "minLength": 1
+    },
+    "metadata": {
+      "type": "object",
+      "properties": {
+        "content": {
+          "type": "object",
+          "$comment": "TODO: Validate image content config",
+          "additionalProperties": true
+        },
+        "content!": {
+          "$ref": "#/properties/metadata/properties/content"
+        },
+        "content?": {
+          "$ref": "#/properties/metadata/properties/content"
+        },
+        "content-": {},
+        "container_yaml": {
+          "type": "object"
+        },
+        "container_yaml!": {
+          "$ref": "#/properties/metadata/properties/container_yaml"
+        },
+        "container_yaml?": {
+          "$ref": "#/properties/metadata/properties/container_yaml"
+        },
+        "container_yaml-": {},
+        "cachito": {
+          "description": "Cachito integration configuration",
+          "$ref": "cachito.schema.json"
+        },
+        "cachito!": {
+          "$ref": "#/properties/metadata/properties/cachito"
+        },
+        "cachito?": {
+          "$ref": "#/properties/metadata/properties/cachito"
+        },
+        "cachito-": {},
+        "dependencies": {
+          "$ref": "assembly_dependencies.schema.json"
+        },
+        "dependencies!": {
+          "$ref": "#/properties/metadata/properties/dependencies"
+        },
+        "dependencies?": {
+          "$ref": "#/properties/metadata/properties/dependencies"
+        },
+        "dependencies-": {},
+        "is": {
+          "type": "object",
+          "properties": {
+            "nvr": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "nvr"
+          ],
+          "additionalProperties": false
+        },
+        "is!": {
+          "$ref": "#/properties/metadata/properties/is"
+        },
+        "is?": {
+          "$ref": "#/properties/metadata/properties/is"
+        },
+        "is-": {}
+      },
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "distgit_key",
+    "why"
+  ],
+  "additionalProperties": false
+}

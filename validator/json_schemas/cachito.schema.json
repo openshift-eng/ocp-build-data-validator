@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "description": "Cachito integration configuration",
+  "properties": {
+    "enabled": {
+      "type": "boolean",
+      "description": "True to enable Cachito support. Default value: false"
+    },
+    "enabled-": {},
+    "flags": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "flags!": {
+      "$ref": "#/properties/flags"
+    },
+    "flags?": {
+      "$ref": "#/properties/flags"
+    },
+    "flags-": {}
+  },
+  "additionalProperties": false
+}
