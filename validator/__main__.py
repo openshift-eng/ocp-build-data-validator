@@ -8,8 +8,6 @@ from . import exceptions, global_session
 
 
 def validate(file):
-    print('Validating {}'.format(file))
-
     (parsed, err) = format.validate(open(file).read())
     if err:
         msg = '{} is not a valid YAML\nReturned error: {}'.format(file, err)
@@ -47,6 +45,8 @@ def validate(file):
                'Returned error: {}').format(file, url, err)
         support.fail_validation(msg, parsed)
 
+    print(f'✅ Validated {file}')
+
 
 def main():
     parser = argparse.ArgumentParser(
@@ -63,7 +63,7 @@ def main():
                         action='store_true',
                         help='Run in single thread, so code.interact() works')
     args = parser.parse_args()
-
+    print(f"Validating {len(args.files)} file(s)...")
     if args.single_thread:
         for f in args.files:
             validate(f)
