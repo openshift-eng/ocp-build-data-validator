@@ -7,6 +7,8 @@ from . import global_session
 
 
 def fail_validation(msg, parsed):
+    if not parsed:
+        raise exceptions.ValidationFailed(msg)
     if 'mode' in parsed and parsed['mode'] == 'wip':
         raise exceptions.ValidationFailedWIP(msg)
     raise exceptions.ValidationFailed(msg)
