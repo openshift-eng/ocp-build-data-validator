@@ -15,6 +15,7 @@ else:
     # importlib.resources has files(), so use that:
     import importlib.resources as importlib_resources
 
+
 def _demerge(data):
     # recursively turn dict meta-attrs ("!?-") that are merged for inheritance into regular attrs just for schema validation
     if type(data) in [bool, int, float, str, bytes, type(None)]:
@@ -38,6 +39,7 @@ def _demerge(data):
 
     raise TypeError(f"Unexpected value type: {type(data)}: {data}")
 
+
 def validate(_, data):
     # Load Json schemas
     path = importlib_resources.files("validator") / "json_schemas"
@@ -50,5 +52,6 @@ def validate(_, data):
     # Validate with JSON schemas
     try:
         validator.validate(demerged_data)
-    except ValidationError as err:
-        return str(err)
+    except ValidationError:
+        errors = validator.iter_errors(demerged_data)
+        return '\n'.join([str(e) for e in errors])
