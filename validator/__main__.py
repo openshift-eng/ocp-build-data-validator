@@ -5,7 +5,6 @@ from multiprocessing import Pool, cpu_count
 
 from . import format, support, schema, github, distgit, cgit
 from . import exceptions, global_session
-from validator.schema import releases_schema
 
 
 def validate(file):
