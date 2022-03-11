@@ -25,6 +25,10 @@ ARCHES_DICT = {
     Optional('aarch64'): str,
 }
 
+CACHITO_SCHEMA = {
+    Optional('enabled'): bool,
+    Optional('flags'): [str],
+}
 
 releases_schema = Schema({
     'releases': {
@@ -82,10 +86,8 @@ releases_schema = Schema({
                     Optional('dependencies'): ASSEMBLY_DEPENDENCIES,
                     Optional('release_jira'): str,
                     Optional('upgrades'): Regex(UPGRADE_EDGES_REGEX),
-                    Optional('cachito'): {
-                        Optional('enabled'): bool,
-                        Optional('flags'): [str],
-                    },
+                    Optional('cachito'): CACHITO_SCHEMA,
+                    Optional('build_profiles'): object
                 },
                 Optional('members'): {
                     Optional('rpms'): [
@@ -106,6 +108,7 @@ releases_schema = Schema({
                             'why': str,  # Human description of why this is being added for historical purposes
                             Optional('metadata'): {
                                 Optional('container_yaml'): object,
+                                Optional('cachito'): CACHITO_SCHEMA,
                                 Optional('content'): IMAGE_CONTENT_SCHEMA,
                                 Optional('dependencies'): ASSEMBLY_DEPENDENCIES,
                                 Optional('is'): {

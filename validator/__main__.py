@@ -23,6 +23,7 @@ def validate(file):
         support.fail_validation(msg, parsed)
 
     if support.get_artifact_type(file) not in ['image', 'rpm']:
+        print(f'✅ Validated {file}')
         return
 
     group_cfg = support.load_group_config_for(file)
