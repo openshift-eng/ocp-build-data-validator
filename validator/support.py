@@ -21,13 +21,6 @@ def load_group_config_for(file):
     return YAML(typ='safe').load(open(group_yaml).read())
 
 
-def load_releases_config_for(file):
-    releases_yaml = os.path.join(get_ocp_build_data_dir(file), 'releases.yml')
-    if not os.path.exists(releases_yaml):
-        return None
-    return releases_yaml
-
-
 def get_ocp_build_data_dir(file):
     file_path = os.path.dirname(file)
     if os.path.exists(os.path.join(file_path, 'group.yml')):
