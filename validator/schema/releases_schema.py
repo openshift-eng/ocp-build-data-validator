@@ -52,5 +52,6 @@ def validate(_, data):
     # Validate with JSON schemas
     try:
         validator.validate(demerged_data)
-    except ValidationError as err:
-        return str(err)
+    except ValidationError:
+        errors = validator.iter_errors(demerged_data)
+        return '\n'.join([str(e) for e in errors])
