@@ -3,6 +3,7 @@ from schema import Schema, Optional, And, Or, Regex, SchemaError
 from validator.schema.modification_schema import modification
 
 GIT_SSH_URL_REGEX = r'((git@[\w\.]+))([\w\.@\:/\-~]+)(\.git)(/)?'
+GIT_WEB_REGEX = r'^https://github\.com/[a-z]+/[a-z]+/?$'
 
 IMAGE_CONTENT_SCHEMA = {
     'source': {
@@ -50,6 +51,7 @@ IMAGE_CONTENT_SCHEMA = {
                 'target': And(str, len),
             },
             'url': And(str, len, Regex(GIT_SSH_URL_REGEX)),
+            Optional('web'): And(str, len, Regex(GIT_WEB_REGEX)),
         },
         Optional('modifications'): [modification],
         Optional('path'): str,
