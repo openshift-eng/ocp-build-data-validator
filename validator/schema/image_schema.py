@@ -50,6 +50,7 @@ IMAGE_CONTENT_SCHEMA = {
                 'target': And(str, len),
             },
             'url': And(str, len, Regex(GIT_SSH_URL_REGEX)),
+            Optional('web'): And(str, len),
         },
         Optional('modifications'): [modification],
         Optional('path'): str,
