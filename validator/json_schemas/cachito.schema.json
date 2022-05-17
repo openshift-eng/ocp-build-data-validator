@@ -10,6 +10,7 @@
     "enabled-": {},
     "flags": {
       "type": "array",
+      "description": "List of flags to pass to Cachito. See https://github.com/release-engineering/cachito",
       "items": {
         "type": "string",
         "minLength": 1
@@ -21,7 +22,18 @@
     "flags?": {
       "$ref": "#/properties/flags"
     },
-    "flags-": {}
+    "flags-": {},
+    "packages": {
+      "type": "object",
+      "description": "A map of package managers where each value is an array of maps describing custom behavior for the packages of that package manager. See https://osbs.readthedocs.io/en/osbs_ocp3/users.html#remote-source-keys"
+    },
+    "packages!": {
+      "$ref": "#/properties/packages"
+    },
+    "packages?": {
+      "$ref": "#/properties/packages"
+    },
+    "packages-": {}
   },
   "additionalProperties": false
 }
