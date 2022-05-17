@@ -1,8 +1,11 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "assembly_dependencies.schema.json",
+  "title": "Assembly Dependencies",
   "type": "object",
   "properties": {
     "rpms": {
+      "title": "RPM dependencies",
       "type": "array",
       "items": {
         "type": "object",

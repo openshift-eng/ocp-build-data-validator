@@ -1,5 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "arches_dict.schema.json",
+  "title": "Architectures Dict",
   "type": "object",
   "properties": {
     "x86_64": {

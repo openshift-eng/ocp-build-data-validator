@@ -1,5 +1,7 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "streams.schema.json",
+    "title": "Streams",
     "$defs": {
         "stream": {
             "type": "object",

@@ -1,6 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "releases": "Releases",
+  "$id": "releases.schema.json",
+  "title": "Releases",
   "description": "Releases object contains information on every release that ART promotes as GA and every custom hotfix it delivers to customers.",
   "type": "object",
   "properties": {

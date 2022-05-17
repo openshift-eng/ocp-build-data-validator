@@ -1,0 +1,856 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "image_config.base.schema.json",
+  "title": "Image Configuration",
+  "type": "object",
+  "properties": {
+    "additional_tags": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "additional_tags!": {
+      "$ref": "#/properties/additional_tags"
+    },
+    "additional_tags?": {
+      "$ref": "#/properties/additional_tags"
+    },
+    "additional_tags-": {},
+    "arches": {
+      "type": "array",
+      "items": {
+        "$ref": "arch.schema.json"
+      }
+    },
+    "arches!": {
+      "$ref": "#/properties/arches"
+    },
+    "arches?": {
+      "$ref": "#/properties/arches"
+    },
+    "arches-": {},
+    "base_only": {
+      "type": "boolean"
+    },
+    "base_only!": {
+      "$ref": "#/properties/base_only"
+    },
+    "base_only?": {
+      "$ref": "#/properties/base_only"
+    },
+    "base_only-": {},
+    "cachito": {
+      "description": "Cachito integration configuration",
+      "$ref": "cachito.schema.json"
+    },
+    "cachito!": {
+      "$ref": "#/properties/cachito"
+    },
+    "cachito?": {
+      "$ref": "#/properties/cachito"
+    },
+    "cachito-": {},
+    "container_yaml": {
+      "type": "object"
+    },
+    "container_yaml!": {
+      "$ref": "#/properties/container_yaml"
+    },
+    "container_yaml?": {
+      "$ref": "#/properties/container_yaml"
+    },
+    "container_yaml-": {},
+    "content": {
+      "description": "Image content configuration",
+      "$ref": "image_content.base.schema.json"
+    },
+    "content!": {
+      "$ref": "#/properties/content"
+    },
+    "content?": {
+      "$ref": "#/properties/content"
+    },
+    "content-": {},
+    "dependencies": {
+      "$ref": "assembly_dependencies.schema.json"
+    },
+    "dependencies!": {
+      "$ref": "#/properties/dependencies"
+    },
+    "dependencies?": {
+      "$ref": "#/properties/dependencies"
+    },
+    "dependencies-": {},
+    "dependents": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "dependents!": {
+      "$ref": "#/properties/dependents"
+    },
+    "dependents?": {
+      "$ref": "#/properties/dependents"
+    },
+    "dependents-": {},
+    "distgit": {
+      "type": "object",
+      "properties": {
+        "namespace": {
+          "type": "string",
+          "enum": [
+            "apbs",
+            "containers",
+            "rpms"
+          ]
+        },
+        "namespace!": {
+          "$ref": "#/properties/distgit/properties/namespace"
+        },
+        "namespace?": {
+          "$ref": "#/properties/distgit/properties/namespace"
+        },
+        "namespace-": {},
+        "component": {
+          "type": "string",
+          "minLength": 1
+        },
+        "component!": {
+          "$ref": "#/properties/distgit/properties/component"
+        },
+        "component?": {
+          "$ref": "#/properties/distgit/properties/component"
+        },
+        "component-": {},
+        "bundle_component": {
+          "type": "string",
+          "minLength": 1
+        },
+        "bundle_component!": {
+          "$ref": "#/properties/distgit/properties/bundle_component"
+        },
+        "bundle_component?": {
+          "$ref": "#/properties/distgit/properties/bundle_component"
+        },
+        "bundle_component-": {},
+        "branch": {
+          "type": "string",
+          "minLength": 1
+        },
+        "branch!": {
+          "$ref": "#/properties/distgit/properties/branch"
+        },
+        "branch?": {
+          "$ref": "#/properties/distgit/properties/branch"
+        },
+        "branch-": {}
+      },
+      "additionalProperties": false
+    },
+    "distgit!": {
+      "$ref": "#/properties/distgit"
+    },
+    "distgit?": {
+      "$ref": "#/properties/distgit"
+    },
+    "distgit-": {},
+    "final_stage_user": {
+      "description": "When doozer injects USER 0 to do a yum update, this field instructs doozer to set this user afterwards in the final stage of the build.",
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "integer"
+        }
+      ]
+    },
+    "final_stage_user!": {
+      "$ref": "#/properties/final_stage_user"
+    },
+    "final_stage_user?": {
+      "$ref": "#/properties/final_stage_user"
+    },
+    "final_stage_user-": {},
+    "enabled_repos": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "enabled_repos!": {
+      "$ref": "#/properties/enabled_repos"
+    },
+    "enabled_repos?": {
+      "$ref": "#/properties/enabled_repos"
+    },
+    "enabled_repos-": {},
+    "non_shipping_repos": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "non_shipping_repos!": {
+      "$ref": "#/properties/non_shipping_repos"
+    },
+    "non_shipping_repos?": {
+      "$ref": "#/properties/non_shipping_repos"
+    },
+    "non_shipping_repos-": {},
+    "non_shipping_rpms": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "non_shipping_rpms!": {
+      "$ref": "#/properties/non_shipping_rpms"
+    },
+    "non_shipping_rpms?": {
+      "$ref": "#/properties/non_shipping_rpms"
+    },
+    "non_shipping_rpms-": {},
+    "from": {
+      "type": "object",
+      "properties": {
+        "builder": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "stream": {
+                "type": "string",
+                "minLength": 1
+              },
+              "stream!": {
+                "$ref": "#/properties/from/properties/builder/items/properties/stream"
+              },
+              "stream?": {
+                "$ref": "#/properties/from/properties/builder/items/properties/stream"
+              },
+              "stream-": {},
+              "member": {
+                "type": "string",
+                "minLength": 1
+              },
+              "member!": {
+                "$ref": "#/properties/from/properties/builder/items/properties/member"
+              },
+              "member?": {
+                "$ref": "#/properties/from/properties/builder/items/properties/member"
+              },
+              "member-": {},
+              "image": {
+                "type": "string",
+                "minLength": 1
+              },
+              "image!": {
+                "$ref": "#/properties/from/properties/builder/items/properties/image"
+              },
+              "image?": {
+                "$ref": "#/properties/from/properties/builder/items/properties/image"
+              },
+              "image-": {}
+            }
+          }
+        },
+        "stream": {
+          "type": "string",
+          "minLength": 1
+        },
+        "stream!": {
+          "$ref": "#/properties/from/properties/stream"
+        },
+        "stream?": {
+          "$ref": "#/properties/from/properties/stream"
+        },
+        "stream-": {},
+        "member": {
+          "type": "string",
+          "minLength": 1
+        },
+        "member!": {
+          "$ref": "#/properties/from/properties/member"
+        },
+        "member?": {
+          "$ref": "#/properties/from/properties/member"
+        },
+        "member-": {},
+        "image": {
+          "type": "string",
+          "minLength": 1
+        },
+        "image!": {
+          "$ref": "#/properties/from/properties/image"
+        },
+        "image?": {
+          "$ref": "#/properties/from/properties/image"
+        },
+        "image-": {}
+      },
+      "additionalProperties": false
+    },
+    "from!": {
+      "$ref": "#/properties/from"
+    },
+    "from?": {
+      "$ref": "#/properties/from"
+    },
+    "from-": {},
+    "labels": {
+      "type": "object",
+      "properties": {
+        "summary": {
+          "type": "string",
+          "minLength": 1
+        },
+        "summary!": {
+          "$ref": "#/properties/labels/properties/summary"
+        },
+        "summary?": {
+          "$ref": "#/properties/labels/properties/summary"
+        },
+        "summary-": {},
+        "License": {
+          "type": "string",
+          "minLength": 1
+        },
+        "License!": {
+          "$ref": "#/properties/labels/properties/License"
+        },
+        "License?": {
+          "$ref": "#/properties/labels/properties/License"
+        },
+        "License-": {},
+        "com.redhat.delivery.appregistry": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "boolean"
+            }
+          ]
+        },
+        "com.redhat.delivery.appregistry!": {
+          "$ref": "#/properties/labels/properties/com.redhat.delivery.appregistry"
+        },
+        "com.redhat.delivery.appregistry?": {
+          "$ref": "#/properties/labels/properties/com.redhat.delivery.appregistry"
+        },
+        "com.redhat.delivery.appregistry-": {},
+        "io.k8s.description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "io.k8s.description!": {
+          "$ref": "#/properties/labels/properties/io.k8s.description"
+        },
+        "io.k8s.description?": {
+          "$ref": "#/properties/labels/properties/io.k8s.description"
+        },
+        "io.k8s.description-": {},
+        "io.k8s.display-name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "io.k8s.display-name!": {
+          "$ref": "#/properties/labels/properties/io.k8s.display-name"
+        },
+        "io.k8s.display-name?": {
+          "$ref": "#/properties/labels/properties/io.k8s.display-name"
+        },
+        "io.k8s.display-name-": {},
+        "io.openshift.release.operator": {
+          "type": "string",
+          "minLength": 1
+        },
+        "io.openshift.release.operator!": {
+          "$ref": "#/properties/labels/properties/io.openshift.release.operator"
+        },
+        "io.openshift.release.operator?": {
+          "$ref": "#/properties/labels/properties/io.openshift.release.operator"
+        },
+        "io.openshift.release.operator-": {},
+        "io.openshift.tags": {
+          "type": "string",
+          "minLength": 1
+        },
+        "io.openshift.tags!": {
+          "$ref": "#/properties/labels/properties/io.openshift.tags"
+        },
+        "io.openshift.tags?": {
+          "$ref": "#/properties/labels/properties/io.openshift.tags"
+        },
+        "io.openshift.tags-": {},
+        "vendor": {
+          "type": "string",
+          "minLength": 1
+        },
+        "vendor!": {
+          "$ref": "#/properties/labels/properties/vendor"
+        },
+        "vendor?": {
+          "$ref": "#/properties/labels/properties/vendor"
+        },
+        "vendor-": {}
+      },
+      "additionalProperties": false
+    },
+    "labels!": {
+      "$ref": "#/properties/labels"
+    },
+    "labels?": {
+      "$ref": "#/properties/labels"
+    },
+    "labels-": {},
+    "image_build_method": {
+      "type": "string",
+      "minLength": 1
+    },
+    "image_build_method!": {
+      "$ref": "#/properties/image_build_method"
+    },
+    "image_build_method?": {
+      "$ref": "#/properties/image_build_method"
+    },
+    "image_build_method-": {},
+    "mode": {
+      "type": "string",
+      "enum": [
+        "auto",
+        "disabled",
+        "wip"
+      ]
+    },
+    "mode!": {
+      "$ref": "#/properties/mode"
+    },
+    "mode?": {
+      "$ref": "#/properties/mode"
+    },
+    "mode-": {},
+    "name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "name!": {
+      "$ref": "#/properties/name"
+    },
+    "name?": {
+      "$ref": "#/properties/name"
+    },
+    "name-": {},
+    "odcs": {
+      "type": "object",
+      "properties": {
+        "packages": {
+          "type": "object",
+          "properties": {
+            "mode": {
+              "type": "string",
+              "enum": [
+                "auto",
+                "manual"
+              ]
+            },
+            "mode!": {
+              "$ref": "#/properties/odcs/properties/packages/properties/mode"
+            },
+            "mode?": {
+              "$ref": "#/properties/odcs/properties/packages/properties/mode"
+            },
+            "mode-": {},
+            "list": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "list!": {
+              "$ref": "#/properties/odcs/properties/packages/properties/list"
+            },
+            "list?": {
+              "$ref": "#/properties/odcs/properties/packages/properties/list"
+            },
+            "list-": {},
+            "exclude": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "exclude!": {
+              "$ref": "#/properties/odcs/properties/packages/properties/exclude"
+            },
+            "exclude?": {
+              "$ref": "#/properties/odcs/properties/packages/properties/exclude"
+            },
+            "exclude-": {}
+          },
+          "additionalProperties": false
+        },
+        "packages!": {
+          "$ref": "#/properties/odcs/properties/packages"
+        },
+        "packages?": {
+          "$ref": "#/properties/odcs/properties/packages"
+        },
+        "packages-": {}
+      },
+      "additionalProperties": false
+    },
+    "odcs!": {
+      "$ref": "#/properties/odcs"
+    },
+    "odcs?": {
+      "$ref": "#/properties/odcs"
+    },
+    "odcs-": {},
+    "no_oit_comments": {
+      "type": "boolean"
+    },
+    "no_oit_comments!": {
+      "$ref": "#/properties/no_oit_comments"
+    },
+    "no_oit_comments?": {
+      "$ref": "#/properties/no_oit_comments"
+    },
+    "no_oit_comments-": {},
+    "owners": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "owners!": {
+      "$ref": "#/properties/owners"
+    },
+    "owners?": {
+      "$ref": "#/properties/owners"
+    },
+    "owners-": {},
+    "payload_name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "payload_name!": {
+      "$ref": "#/properties/payload_name"
+    },
+    "payload_name?": {
+      "$ref": "#/properties/payload_name"
+    },
+    "payload_name-": {},
+    "push": {
+      "type": "object",
+      "properties": {
+        "late": {
+          "type": "boolean"
+        },
+        "late!": {
+          "$ref": "#/properties/push/properties/late"
+        },
+        "late?": {
+          "$ref": "#/properties/push/properties/late"
+        },
+        "late-": {},
+        "repos": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "repos!": {
+          "$ref": "#/properties/push/properties/repos"
+        },
+        "repos?": {
+          "$ref": "#/properties/push/properties/repos"
+        },
+        "repos-": {},
+        "additional_tags": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "additional_tags!": {
+          "$ref": "#/properties/push/properties/additional_tags"
+        },
+        "additional_tags?": {
+          "$ref": "#/properties/push/properties/additional_tags"
+        },
+        "additional_tags-": {}
+      },
+      "additionalProperties": false
+    },
+    "push!": {
+      "$ref": "#/properties/push"
+    },
+    "push?": {
+      "$ref": "#/properties/push"
+    },
+    "push-": {},
+    "required": {
+      "type": "boolean"
+    },
+    "required!": {
+      "$ref": "#/properties/required"
+    },
+    "required?": {
+      "$ref": "#/properties/required"
+    },
+    "required-": {},
+    "scan_sources": {
+      "type": "object",
+      "properties": {
+        "extra_packages": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "name": {
+                "type": "string",
+                "minLength": 1
+              },
+              "name!": {
+                "$ref": "#/properties/scan_sources/properties/extra_packages/items/properties/name"
+              },
+              "name?": {
+                "$ref": "#/properties/scan_sources/properties/extra_packages/items/properties/name"
+              },
+              "name-": {},
+              "tag": {
+                "type": "string",
+                "minLength": 1
+              },
+              "tag!": {
+                "$ref": "#/properties/scan_sources/properties/extra_packages/items/properties/tag"
+              },
+              "tag?": {
+                "$ref": "#/properties/scan_sources/properties/extra_packages/items/properties/tag"
+              },
+              "tag-": {}
+            }
+          }
+        },
+        "extra_packages!": {
+          "$ref": "#/properties/scan_sources/properties/extra_packages"
+        },
+        "extra_packages?": {
+          "$ref": "#/properties/scan_sources/properties/extra_packages"
+        },
+        "extra_packages-": {}
+      },
+      "additionalProperties": false
+    },
+    "scan_sources!": {
+      "$ref": "#/properties/scan_sources"
+    },
+    "scan_sources?": {
+      "$ref": "#/properties/scan_sources"
+    },
+    "scan_sources-": {},
+    "update-csv": {
+      "type": "object",
+      "properties": {
+        "manifests-dir": {
+          "type": "string",
+          "minLength": 1
+        },
+        "manifests-dir!": {
+          "$ref": "#/properties/update-csv/properties/manifests-dir"
+        },
+        "manifests-dir?": {
+          "$ref": "#/properties/update-csv/properties/manifests-dir"
+        },
+        "manifests-dir-": {},
+        "bundle-dir": {
+          "type": "string",
+          "minLength": 1
+        },
+        "bundle-dir!": {
+          "$ref": "#/properties/update-csv/properties/bundle-dir"
+        },
+        "bundle-dir?": {
+          "$ref": "#/properties/update-csv/properties/bundle-dir"
+        },
+        "bundle-dir-": {},
+        "registry": {
+          "type": "string",
+          "minLength": 1
+        },
+        "registry!": {
+          "$ref": "#/properties/update-csv/properties/registry"
+        },
+        "registry?": {
+          "$ref": "#/properties/update-csv/properties/registry"
+        },
+        "registry-": {},
+        "valid-subscription-label": {
+          "type": "string",
+          "minLength": 1
+        },
+        "valid-subscription-label!": {
+          "$ref": "#/properties/update-csv/properties/valid-subscription-label"
+        },
+        "valid-subscription-label?": {
+          "$ref": "#/properties/update-csv/properties/valid-subscription-label"
+        },
+        "valid-subscription-label-": {},
+        "channel": {
+          "type": "string",
+          "minLength": 1
+        },
+        "channel!": {
+          "$ref": "#/properties/update-csv/properties/channel"
+        },
+        "channel?": {
+          "$ref": "#/properties/update-csv/properties/channel"
+        },
+        "channel-": {},
+        "image-map": {
+          "type": "object"
+        },
+        "image-map!": {
+          "$ref": "#/properties/update-csv/properties/image-map"
+        },
+        "image-map?": {
+          "$ref": "#/properties/update-csv/properties/image-map"
+        },
+        "image-map-": {}
+      },
+      "additionalProperties": false
+    },
+    "update-csv!": {
+      "$ref": "#/properties/update-csv"
+    },
+    "update-csv?": {
+      "$ref": "#/properties/update-csv"
+    },
+    "update-csv-": {},
+    "wait_for": {
+      "type": "string",
+      "minLength": 1
+    },
+    "wait_for!": {
+      "$ref": "#/properties/wait_for"
+    },
+    "wait_for?": {
+      "$ref": "#/properties/wait_for"
+    },
+    "wait_for-": {},
+    "maintainer": {
+      "type": "object",
+      "properties": {
+        "product": {
+          "type": "string",
+          "minLength": 1
+        },
+        "product!": {
+          "$ref": "#/properties/maintainer/properties/product"
+        },
+        "product?": {
+          "$ref": "#/properties/maintainer/properties/product"
+        },
+        "product-": {},
+        "component": {
+          "type": "string",
+          "minLength": 1
+        },
+        "component!": {
+          "$ref": "#/properties/maintainer/properties/component"
+        },
+        "component?": {
+          "$ref": "#/properties/maintainer/properties/component"
+        },
+        "component-": {},
+        "subcomponent": {
+          "type": "string",
+          "minLength": 1
+        },
+        "subcomponent!": {
+          "$ref": "#/properties/maintainer/properties/subcomponent"
+        },
+        "subcomponent?": {
+          "$ref": "#/properties/maintainer/properties/subcomponent"
+        },
+        "subcomponent-": {}
+      },
+      "additionalProperties": false
+    },
+    "maintainer!": {
+      "$ref": "#/properties/maintainer"
+    },
+    "maintainer?": {
+      "$ref": "#/properties/maintainer"
+    },
+    "maintainer-": {},
+    "for_payload": {
+      "type": "boolean"
+    },
+    "for_payload!": {
+      "$ref": "#/properties/for_payload"
+    },
+    "for_payload?": {
+      "$ref": "#/properties/for_payload"
+    },
+    "for_payload-": {},
+    "for_release": {
+      "type": "boolean"
+    },
+    "for_release!": {
+      "$ref": "#/properties/for_release"
+    },
+    "for_release?": {
+      "$ref": "#/properties/for_release"
+    },
+    "for_release-": {},
+    "name_in_bundle": {
+      "type": "string",
+      "minLength": 1
+    },
+    "name_in_bundle!": {
+      "$ref": "#/properties/name_in_bundle"
+    },
+    "name_in_bundle?": {
+      "$ref": "#/properties/name_in_bundle"
+    },
+    "name_in_bundle-": {},
+    "is": {
+      "type": "object",
+      "properties": {
+        "nvr": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "nvr"
+      ],
+      "additionalProperties": false
+    },
+    "is!": {
+      "$ref": "#/properties/is"
+    },
+    "is?": {
+      "$ref": "#/properties/is"
+    },
+    "is-": {}
+  },
+  "additionalProperties": false
+}

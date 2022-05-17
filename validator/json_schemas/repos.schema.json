@@ -1,5 +1,7 @@
 {
     "type": "object",
+    "$id": "repos.schema.json",
+    "title": "Repositories",
     "$defs": {
         "repo": {
             "type": "object",

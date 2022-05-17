@@ -82,3 +82,7 @@ def main():
 
         finally:
             exit(rc)
+
+
+if __name__ == "__main__":
+    main()
