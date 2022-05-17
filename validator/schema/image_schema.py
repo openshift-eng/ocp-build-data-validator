@@ -55,7 +55,7 @@ IMAGE_CONTENT_SCHEMA = {
         Optional('modifications'): [modification],
         Optional('path'): str,
         Optional(Or('pkg_managers', 'pkg_managers!')): [
-            And(str, len, lambda s: s in ('gomod',)),
+            And(str, len, lambda s: s in ('gomod', 'yarn')),
         ],
     },
 }
