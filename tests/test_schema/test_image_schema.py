@@ -6,7 +6,7 @@ from validator.schema import image_schema
 
 class TestImageSchema(unittest.TestCase):
 
-    def test_validate_with_valid_data(self):
+    def setUp(self):
         (flexmock(image_schema.support)
             .should_receive('get_valid_streams_for')
             .and_return([]))
@@ -15,6 +15,7 @@ class TestImageSchema(unittest.TestCase):
             .should_receive('get_valid_member_references_for')
             .and_return([]))
 
+    def test_validate_with_valid_data(self):
         valid_data = {
             'from': {},
             'name': 'my-name',
@@ -23,14 +24,6 @@ class TestImageSchema(unittest.TestCase):
         self.assertIsNone(image_schema.validate('filename', valid_data))
 
     def test_validate_with_invalid_data(self):
-        (flexmock(image_schema.support)
-            .should_receive('get_valid_streams_for')
-            .and_return([]))
-
-        (flexmock(image_schema.support)
-            .should_receive('get_valid_member_references_for')
-            .and_return([]))
-
         invalid_data = {
             'from': {},
             'name': 1234,
@@ -39,14 +32,6 @@ class TestImageSchema(unittest.TestCase):
                          image_schema.validate('filename', invalid_data))
 
     def test_validate_with_invalid_content_source_git_url(self):
-        (flexmock(image_schema.support)
-            .should_receive('get_valid_streams_for')
-            .and_return([]))
-
-        (flexmock(image_schema.support)
-            .should_receive('get_valid_member_references_for')
-            .and_return([]))
-
         url = 'https://github.com/openshift/csi-node-driver-registrar'
         invalid_data = {
             'content': {
@@ -65,14 +50,6 @@ class TestImageSchema(unittest.TestCase):
         self.assertIn("Key 'content' error:\nKey", image_schema.validate('filename', invalid_data))
 
     def test_validate_with_valid_content_source_git_url(self):
-        (flexmock(image_schema.support)
-            .should_receive('get_valid_streams_for')
-            .and_return([]))
-
-        (flexmock(image_schema.support)
-            .should_receive('get_valid_member_references_for')
-            .and_return([]))
-
         url = 'git@github.com:openshift/csi-node-driver-registrar.git'
         valid_data = {
             'content': {
