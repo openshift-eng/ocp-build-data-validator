@@ -67,3 +67,33 @@ class TestImageSchema(unittest.TestCase):
             'for_payload': True,
         }
         self.assertIsNone(image_schema.validate('filename', valid_data))
+
+    def test_validate_with_valid_subscription_label(self):
+        data = {
+            'from': {},
+            'name': 'my-name',
+            'for_payload': True,
+            'update-csv': {
+                'manifests-dir': '...',
+                'bundle-dir': '...',
+                'registry': '...',
+                'valid-subscription-label': '["foo", "bar", "baz"]',
+            },
+        }
+        self.assertIsNone(image_schema.validate('filename', data))
+
+    def test_validate_without_valid_subscription_label(self):
+        data = {
+            'from': {},
+            'name': 'my-name',
+            'for_payload': True,
+            'update-csv': {
+                'manifests-dir': '...',
+                'bundle-dir': '...',
+                'registry': '...',
+            },
+        }
+        self.assertIn(
+            "Missing key: 'valid-subscription-label'",
+            image_schema.validate('filename', data)
+        )
