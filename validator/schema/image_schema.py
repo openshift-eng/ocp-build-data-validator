@@ -193,6 +193,7 @@ def image_schema(file):
             'registry': And(str, len),
             Optional('channel'): And(str, len),
             Optional('image-map'): dict,
+            Optional('csv_namespace'): And(str, len),
         },
         Optional('wait_for'): And(str, len),
         Optional('maintainer'): {
