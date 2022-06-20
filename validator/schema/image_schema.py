@@ -191,6 +191,7 @@ def image_schema(file):
             'manifests-dir': And(str, len),
             'bundle-dir': And(str, len),
             'registry': And(str, len),
+            'valid-subscription-label': And(str, len),
             Optional('channel'): And(str, len),
             Optional('image-map'): dict,
         },
