@@ -1,4 +1,4 @@
-# Setup Your Editor for Auto-completion and instantaneous validation
+# Setup Your Editor for Auto-completion and Instantaneous Validation
 
 ## Visual Studio Code (VSCode)
 - Install the [YAML][1] plugin.
@@ -23,5 +23,28 @@
   - Click `+`, choose `Add file`, type `releases.yml`, and press `Return`.
 - Open `releases.yml`.
 
+## Vim
+- Install [Node.js][2].
+- Install [coc-nvim][3] plugin for `vim`.
+- Install `coc-yaml` server extension from within vim:
+  ```
+  :CocInstall coc-yaml
+  ```
+- Edit `coc-nvim` configuration
+  ```
+  :CocConfig
+  ```
+- Add the following config options:
+  ```yaml
+  {
+        "yaml.schemas": {
+            "/path/to/json_schemas/releases.schema.json": "/releases.yml",
+        }
+  }
+  ```
+- End editing configuration and open `releases.yaml`.
+
 
 [1]: https://marketplace.visualstudio.com/items?itemName=redhat.vscode-yaml
+[2]: https://nodejs.org/en/download/package-manager/
+[3]: https://github.com/neoclide/coc.nvim/wiki/Install-coc.nvim
