@@ -208,9 +208,9 @@ def image_schema(file):
             Optional('enabled'): bool,
             Optional('flags'): [str],
             Optional('packages'): {
-                Optional('gomod'): dict,
-                Optional('yarn'): dict,
-                Optional('pip'): dict,
+                Optional('gomod'): len,
+                Optional('yarn'): len,
+                Optional('pip'): len,
             },
         },
     })
