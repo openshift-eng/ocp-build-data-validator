@@ -207,6 +207,11 @@ def image_schema(file):
         Optional('cachito'): {
             Optional('enabled'): bool,
             Optional('flags'): [str],
+            Optional('packages'): {
+                Optional('gomod'): dict,
+                Optional('yarn'): dict,
+                Optional('pip'): dict,
+            },
         },
     })
 
