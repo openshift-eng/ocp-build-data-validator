@@ -8,10 +8,11 @@
     {
         "yaml.schemas": {
             "/path/to/json_schemas/releases.schema.json": "/releases.yml",
+            "/path/to/json_schemas/image_config.schema.json": "/images/*.yml",
         }
     }
     ```
-- Open `releases.yml`.
+- Open the .yml file that you want to edit.
 
 ## PyCharm (or other Intellij IDEA based IDEs)
 - Open `ocp-build-data` project.
@@ -39,10 +40,11 @@
   {
         "yaml.schemas": {
             "/path/to/json_schemas/releases.schema.json": "/releases.yml",
+            "/path/to/json_schemas/image_config.schema.json": "/images/*.yml",
         }
   }
   ```
-- End editing configuration and open `releases.yaml`.
+- Open the .yml file that you want to edit.
 
 
 [1]: https://marketplace.visualstudio.com/items?itemName=redhat.vscode-yaml

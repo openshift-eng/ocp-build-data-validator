@@ -1,5 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "rhcos.schema.json",
+  "title": "RHCOS",
   "description": "RHCOS images for the assembly.",
   "type": "object",
   "properties": {

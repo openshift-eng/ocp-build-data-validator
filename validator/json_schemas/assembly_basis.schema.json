@@ -1,6 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "Basis of the assembly",
+  "$id": "assembly_basis.schema.json",
+  "title": "Assembly Basis",
   "description": "Basis ties the release to a particular moment, existing release, or another release.",
   "type": "object",
   "properties": {
@@ -15,6 +16,7 @@
       "minLength": 1
     },
     "reference_releases": {
+      "title": "Reference releases",
       "description": "Indicates this release should be assembled with specified existing release images",
       "$ref": "arches_dict.schema.json"
     },

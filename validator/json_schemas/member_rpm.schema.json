@@ -1,5 +1,7 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "member_rpm.schema.json",
+    "title": "Assembly Member RPM",
     "type": "object",
     "properties": {
         "distgit_key": {

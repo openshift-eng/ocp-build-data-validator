@@ -1,5 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "assembly.schema.json",
   "title": "Assembly",
   "description": "An assembly represents unambiguous, programmatic instructions on how to build and rebuild a release payload at any point in the future.",
   "type": "object",

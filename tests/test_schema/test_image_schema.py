@@ -1,20 +1,9 @@
 import unittest
-from flexmock import flexmock
 
 from validator.schema import image_schema
 
 
 class TestImageSchema(unittest.TestCase):
-
-    def setUp(self):
-        (flexmock(image_schema.support)
-            .should_receive('get_valid_streams_for')
-            .and_return([]))
-
-        (flexmock(image_schema.support)
-            .should_receive('get_valid_member_references_for')
-            .and_return([]))
-
     def test_validate_with_valid_data(self):
         valid_data = {
             'from': {},
@@ -28,8 +17,8 @@ class TestImageSchema(unittest.TestCase):
             'from': {},
             'name': 1234,
         }
-        self.assertEqual("Key 'name' error:\n1234 should be instance of 'str'",
-                         image_schema.validate('filename', invalid_data))
+        self.assertIn("1234 is not of type 'string'",
+                      image_schema.validate('filename', invalid_data))
 
     def test_validate_with_invalid_content_source_git_url(self):
         url = 'https://github.com/openshift/csi-node-driver-registrar'
@@ -47,7 +36,7 @@ class TestImageSchema(unittest.TestCase):
             'name': '1234',
             'from': {},
         }
-        self.assertIn("Key 'content' error:\nKey", image_schema.validate('filename', invalid_data))
+        self.assertIn("'https://github.com/openshift/csi-node-driver-registrar' does not match", image_schema.validate('filename', invalid_data))
 
     def test_validate_with_valid_content_source_git_url(self):
         url = 'git@github.com:openshift/csi-node-driver-registrar.git'
@@ -94,6 +83,6 @@ class TestImageSchema(unittest.TestCase):
             },
         }
         self.assertIn(
-            "Missing key: 'valid-subscription-label'",
+            "Failed validating 'anyOf' in schema",
             image_schema.validate('filename', data)
         )
