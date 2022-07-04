@@ -131,7 +131,8 @@
     "cachito?": {
       "$ref": "#/properties/cachito"
     },
-    "cachito-": {}
+    "cachito-": {},
+    "build_profiles": {}
   },
   "additionalProperties": false
 }

@@ -47,7 +47,7 @@ def get_artifact_type(file):
     if 'rpms/' in file:
         return 'rpm'
 
-    if any([x in file for x in ['erratatool.yml', 'group.yml', 'bugzilla.yml']]):
+    if any([x in file for x in ['erratatool.yml', 'group.yml', 'bug.yml', 'bugzilla.yml']]):
         return 'ignore'
 
     return '???'
