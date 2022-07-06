@@ -9,7 +9,8 @@
       "enum": [
         "command",
         "replace",
-        "add"
+        "add",
+        "remove"
       ]
     },
     "action?": {
@@ -100,7 +101,18 @@
     "overwriting!": {
       "$ref": "#/properties/overwriting"
     },
-    "overwriting-": {}
+    "overwriting-": {},
+    "glob": {
+      "type": "string",
+      "minLength": 1
+    },
+    "glob?": {
+      "$ref": "#/properties/glob"
+    },
+    "glob!": {
+      "$ref": "#/properties/glob"
+    },
+    "glob-": {}
   },
   "additionalProperties": false,
   "anyOf": [
