@@ -12,7 +12,8 @@
         "stream",
         "standard",
         "candidate",
-        "custom"
+        "custom",
+        "preview"
       ]
     },
     "basis": {
