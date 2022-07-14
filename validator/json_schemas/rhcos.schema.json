@@ -43,6 +43,15 @@
     "machine-os-content?": {
       "$ref": "#/properties/machine-os-content"
     },
+    "rhel-coreos-8": {
+      "$ref": "#/properties/machine-os-content"
+    },
+    "rhel-coreos-8!": {
+      "$ref": "#/properties/machine-os-content"
+    },
+    "rhel-coreos-8?": {
+      "$ref": "#/properties/machine-os-content"
+    },
     "dependencies": {
       "$ref": "assembly_dependencies.schema.json"
     },
