@@ -3,7 +3,7 @@ LABEL name="ocp-build-data-validator" \
   description="ocp-build-data validator container image" \
   maintainer="OpenShift Automated Release Tooling (ART) Team <aos-team-art@redhat.com>"
 
-RUN yum install -y epel-release @python36 \
+RUN yum install -y epel-release @python38 \
  && yum install -y \
     gcc \
     git \
@@ -12,21 +12,20 @@ RUN yum install -y epel-release @python36 \
     libcurl-devel \
     libgit2 \
     openssl-devel \
-    rpm-devel \
-    python3-{devel,pip} \
- && yum clean all
-
+    python38-{devel,pip,requests} \
+ && yum clean all \
+ && update-alternatives --set python3 /usr/bin/python3.8
 
 RUN python3 -m pip install -U pip \
  && useradd -ms /bin/bash -u 1000 art
 
 USER art
 # These environment variables are required to install pycurl, koji, and rpkg with pip
-ENV PYCURL_SSL_LIBRARY=openssl RPM_PY_SYS=true \
+ENV PYCURL_SSL_LIBRARY=openssl \
     PATH=$PATH:/home/art/.local/bin
-RUN pip3 install --user tox twine setuptools wheel codecov future \
-    https://github.com/openshift/doozer/archive/refs/tags/v2.0.10.tar.gz \
-    https://github.com/openshift/elliott/archive/refs/tags/v2.0.7.tar.gz \
-    https://github.com/openshift/ocp-build-data-validator/archive/refs/tags/v0.2.5.tar.gz
+RUN pip3 install --user tox twine setuptools>=45 wheel codecov future \
+    git+https://github.com/openshift/doozer.git \
+    git+https://github.com/openshift/elliott.git \
+    https://github.com/openshift/ocp-build-data-validator/archive/refs/heads/master.zip
 
 CMD ["tox"]
