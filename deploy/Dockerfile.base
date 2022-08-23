@@ -23,7 +23,7 @@ USER art
 # These environment variables are required to install pycurl, koji, and rpkg with pip
 ENV PYCURL_SSL_LIBRARY=openssl \
     PATH=$PATH:/home/art/.local/bin
-RUN pip3 install --user tox twine setuptools>=45 wheel codecov future \
+RUN pip3 install --user tox twine "setuptools>=45" wheel codecov future \
     git+https://github.com/openshift/doozer.git \
     git+https://github.com/openshift/elliott.git \
     https://github.com/openshift/ocp-build-data-validator/archive/refs/heads/master.zip
