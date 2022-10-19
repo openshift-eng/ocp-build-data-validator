@@ -8,7 +8,11 @@ from jsonschema.validators import validator_for
 def validate(file, data):
     # Load Json schemas
     path = importlib_resources.files("validator") / "json_schemas"
-    schemas = {source.name: json.load(open(source)) for source in path.iterdir() if source.name.endswith(".json")}
+    schemas = {}
+    for source in path.iterdir():
+        if source.name.endswith(".json"):
+            with open(source) as f:
+                schemas[source.name] = json.load(f)
     schema_store = {schema.get("$id", filename): schema for filename, schema in schemas.items()}
     schema = schema_store["image_config.schema.json"]
     resolver = RefResolver.from_schema(schema, store=schema_store)
