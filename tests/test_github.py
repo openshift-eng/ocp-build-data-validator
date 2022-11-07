@@ -18,50 +18,50 @@ class TestGitHub(unittest.TestCase):
     def test_repository_doesnt_exist(self):
         (flexmock(github.support)
             .should_receive('resource_exists')
-            .with_args('https://github.com/myorg/myrepo')
+            .with_args('https://github.com/openshift-priv/myrepo')
             .and_return(False))
 
         data = {
             'content': {
                 'source': {
                     'git': {
-                        'url': 'https://github.com/myorg/myrepo',
+                        'url': 'git@github.com:openshift-priv/myrepo',
                     }
                 }
             }
         }
 
         (url, err) = github.validate(data, {})
-        self.assertEqual(url, 'https://github.com/myorg/myrepo')
         self.assertEqual(err, ('GitHub repository '
-                               "https://github.com/myorg/myrepo doesn't "
+                               "https://github.com/openshift-priv/myrepo doesn't "
                                'exist'))
+        self.assertEqual(url, 'https://github.com/openshift-priv/myrepo')
 
     def test_no_declared_branches(self):
         data = {
             'content': {
                 'source': {
                     'git': {
-                        'url': 'https://github.com/myorg/myrepo',
+                        'url': 'git@github.com:openshift-priv/myrepo',
                     }
                 }
             }
         }
 
         (url, err) = github.validate(data, {})
-        self.assertEqual(url, 'https://github.com/myorg/myrepo')
+        self.assertEqual(url, 'https://github.com/openshift-priv/myrepo')
         self.assertEqual(err, ('No branches specified under '
                                'content > source > git'))
 
     def test_target_branch_doesnt_exist(self):
         (flexmock(github)
             .should_receive('branch_exists')
-            .with_args('release-4.2', 'https://github.com/myorg/myrepo')
+            .with_args('release-4.2', 'https://github.com/openshift-priv/myrepo')
             .and_return(False))
 
         (flexmock(github)
             .should_receive('branch_exists')
-            .with_args('fallback-branch', 'https://github.com/myorg/myrepo')
+            .with_args('fallback-branch', 'https://github.com/openshift-priv/myrepo')
             .and_return(True))
 
         data = {
@@ -72,25 +72,25 @@ class TestGitHub(unittest.TestCase):
                             'target': 'release-{MAJOR}.{MINOR}',
                             'fallback': 'fallback-branch',
                         },
-                        'url': 'https://github.com/myorg/myrepo',
+                        'url': 'git@github.com:openshift-priv/myrepo',
                     }
                 }
             }
         }
 
         (url, err) = github.validate(data, {'vars': {'MAJOR': 4, 'MINOR': 2}})
-        self.assertEqual(url, 'https://github.com/myorg/myrepo')
+        self.assertEqual(url, 'https://github.com/openshift-priv/myrepo')
         self.assertEqual(err, None)
 
     def test_target_nor_fallback_branches_exist(self):
         (flexmock(github)
             .should_receive('branch_exists')
-            .with_args('release-4.2', 'https://github.com/myorg/myrepo')
+            .with_args('release-4.2', 'https://github.com/openshift-priv/myrepo')
             .and_return(False))
 
         (flexmock(github)
             .should_receive('branch_exists')
-            .with_args('fallback-branch', 'https://github.com/myorg/myrepo')
+            .with_args('fallback-branch', 'https://github.com/openshift-priv/myrepo')
             .and_return(False))
 
         data = {
@@ -101,21 +101,21 @@ class TestGitHub(unittest.TestCase):
                             'target': 'release-{MAJOR}.{MINOR}',
                             'fallback': 'fallback-branch',
                         },
-                        'url': 'https://github.com/myorg/myrepo',
+                        'url': 'git@github.com:openshift-priv/myrepo',
                     }
                 }
             }
         }
 
         (url, err) = github.validate(data, {'vars': {'MAJOR': 4, 'MINOR': 2}})
-        self.assertEqual(url, 'https://github.com/myorg/myrepo')
+        self.assertEqual(url, 'https://github.com/openshift-priv/myrepo')
         self.assertEqual(err, ('At least one of the following branches '
                                'should exist: release-4.2 or fallback-branch'))
 
     def test_declared_dockerfile_doesnt_exist(self):
         (flexmock(github.support)
             .should_receive('resource_exists')
-            .with_args('https://github.com/org/repo/blob/xyz/Dockerfile.rhel7')
+            .with_args('https://github.com/openshift-priv/repo/blob/xyz/Dockerfile.rhel7')
             .and_return(False))
 
         data = {
@@ -127,14 +127,14 @@ class TestGitHub(unittest.TestCase):
                             'target': 'xyz',
                             'fallback': 'fallback-branch',
                         },
-                        'url': 'https://github.com/org/repo',
+                        'url': 'git@github.com:openshift-priv/repo',
                     }
                 }
             }
         }
 
         (url, err) = github.validate(data, {'vars': {'MAJOR': 4, 'MINOR': 2}})
-        self.assertEqual(url, 'https://github.com/org/repo')
+        self.assertEqual(url, 'https://github.com/openshift-priv/repo')
         self.assertEqual(err, ('dockerfile Dockerfile.rhel7 '
                                'not found on branch xyz'))
 
@@ -161,7 +161,7 @@ class TestGitHub(unittest.TestCase):
                             'target': 'xyz',
                             'fallback': 'fallback-branch',
                         },
-                        'url': 'https://github.com/org/repo',
+                        'url': 'git@github.com:org/repo',
                     },
                     'path': 'my/custom/path',
                 }
@@ -186,7 +186,7 @@ class TestGitHub(unittest.TestCase):
                             'target': 'xyz',
                             'fallback': 'fallback-branch',
                         },
-                        'url': 'https://github.com/org/repo',
+                        'url': 'git@github.com:org/repo',
                     }
                 }
             },
@@ -221,7 +221,7 @@ class TestGitHub(unittest.TestCase):
                             'target': 'xyz',
                             'fallback': 'fallback-branch',
                         },
-                        'url': 'https://github.com/org/repo',
+                        'url': 'git@github.com:org/repo.git',
                     },
                     'path': 'my/custom/path',
                 }
@@ -232,8 +232,8 @@ class TestGitHub(unittest.TestCase):
         }
 
         (url, err) = github.validate(data, {'vars': {'MAJOR': 4, 'MINOR': 2}})
-        self.assertEqual(url, 'https://github.com/org/repo')
         self.assertIsNone(err)
+        self.assertEqual(url, 'https://github.com/org/repo')
 
     def test_translate_private_upstreams_to_public(self):
         data = {
@@ -245,7 +245,7 @@ class TestGitHub(unittest.TestCase):
                             'target': 'xyz',
                             'fallback': 'fallback-branch',
                         },
-                        'url': 'https://github.com/openshift-priv/repo',
+                        'url': 'git@github.com:openshift-priv/repo',
                     }
                 }
              }
@@ -254,30 +254,30 @@ class TestGitHub(unittest.TestCase):
              'vars': {'MAJOR': 4, 'MINOR': 2},
              'public_upstreams': [
                  {
-                     'private': 'https://github.com/openshift-priv',
-                     'public': 'https://github.com/openshift',
+                     'private': 'git@github.com:openshift-priv',
+                     'public': 'git@github.com:openshift',
                  },
                  {
-                     'private': 'https://github.com/openshift/ose',
-                     'public': 'https://github.com/openshift/origin',
+                     'private': 'git@github.com:openshift/ose',
+                     'public': 'git@github.com:openshift/origin',
                  },
              ],
         }
         (url, err) = github.validate(data, group_cfg)
-        self.assertEqual(url, 'https://github.com/openshift/repo')
         self.assertIsNone(err)
+        self.assertEqual(url, 'https://github.com/openshift-priv/repo')
 
     def test_translate_private_upstreams_to_public_no_match(self):
         data = {
             'content': {
                 'source': {
-                    'dockerfile': 'Dockerfile.rhel7',
+                    'dockerfile': 'dockerfile.rhel7',
                     'git': {
                         'branch': {
                             'target': 'xyz',
                             'fallback': 'fallback-branch',
                         },
-                        'url': 'https://github.com/org/repo',
+                        'url': 'git@github.com:org/repo',
                     }
                 }
             },
@@ -289,3 +289,48 @@ class TestGitHub(unittest.TestCase):
         (url, err) = github.validate(data, {'vars': {'MAJOR': 4, 'MINOR': 2}})
         self.assertEqual(url, 'https://github.com/org/repo')
         self.assertIsNone(err)
+
+    def test_uses_ssh(self):
+        def data(url):
+            return {
+                'content': {
+                    'source': {
+                        'dockerfile': 'dockerfile',
+                        'git': {
+                            'branch': {
+                                'target': 'xyz',
+                                'fallback': 'fallback-branch',
+                            },
+                            'url': url,
+                        }
+                    }
+                }
+            }
+
+        self.assertFalse(github.uses_ssh(data('https://host/org/repo')))
+        self.assertTrue(github.uses_ssh(data('git@host:org/repo.git')))
+
+    def test_has_permitted_repo(self):
+        def data(repo):
+            return {
+                'content': {
+                    'source': {
+                        'dockerfile': 'dockerfile',
+                        'git': {
+                            'branch': {
+                                'target': 'xyz',
+                                'fallback': 'fallback-branch',
+                            },
+                            'url': f'git@github.com:{repo}.git',
+                        }
+                    }
+                }
+            }
+
+        self.assertTrue(github.has_permitted_repo(data('openshift-priv/my-repo')))
+        self.assertTrue(github.has_permitted_repo(data('openshift/ocp-build-data')))
+        self.assertFalse(github.has_permitted_repo(data('cpuguy85/h4ckzor')))
+
+
+if __name__ == '__main__':
+    unittest.main()
