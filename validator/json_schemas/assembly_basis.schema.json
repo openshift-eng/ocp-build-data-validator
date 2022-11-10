@@ -15,6 +15,19 @@
       "type": "string",
       "minLength": 1
     },
+    "patch_version": {
+      "description": "For a custom release, explicitly set the patch version",
+      "type": "integer",
+      "minimum": 0
+    },
+    "patch_version!": {
+      "$ref": "#/properties/patch_version"
+    },
+    "patch_version?": {
+      "$ref": "#/properties/patch_version"
+    },
+    "patch_version-": {
+    },
     "reference_releases": {
       "title": "Reference releases",
       "description": "Indicates this release should be assembled with specified existing release images",
