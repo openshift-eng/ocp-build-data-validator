@@ -69,7 +69,17 @@
         "metadata?": {
           "$ref": "#/properties/advisories/properties/metadata"
         },
-        "metadata-": {}
+        "metadata-": {},
+        "microshift": {
+          "type": "integer"
+        },
+        "microshift!": {
+          "$ref": "#/properties/advisories/properties/microshift"
+        },
+        "microshift?": {
+          "$ref": "#/properties/advisories/properties/microshift"
+        },
+        "microshift-": {}
       },
       "additionalProperties": false
     },
