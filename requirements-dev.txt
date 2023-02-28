@@ -1,8 +1,5 @@
 pip
 setuptools
-
--rrequirements.txt
-
 flexmock
 mock
 
