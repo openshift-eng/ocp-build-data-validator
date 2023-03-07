@@ -9,6 +9,8 @@ ocp-build-data-validator
 Validation of `ocp-build-data <https://gitlab.cee.redhat.com/openshift-art/ocp-build-data>`__
 Image & RPM declarations
 
+change for summy pr
+
 Installation
 ------------
 
