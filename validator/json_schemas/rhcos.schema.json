@@ -61,6 +61,24 @@
     "rhel-coreos-8-extensions?": {
       "$ref": "#/properties/machine-os-content"
     },
+    "rhel-coreos": {
+      "$ref": "#/properties/machine-os-content"
+    },
+    "rhel-coreos!": {
+      "$ref": "#/properties/machine-os-content"
+    },
+    "rhel-coreos?": {
+      "$ref": "#/properties/machine-os-content"
+    },
+    "rhel-coreos-extensions": {
+      "$ref": "#/properties/machine-os-content"
+    },
+    "rhel-coreos-extensions!": {
+      "$ref": "#/properties/machine-os-content"
+    },
+    "rhel-coreos-extensions?": {
+      "$ref": "#/properties/machine-os-content"
+    },
     "dependencies": {
       "$ref": "assembly_dependencies.schema.json"
     },
