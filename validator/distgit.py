@@ -13,7 +13,7 @@ def validate(file, data, group_cfg):
     repo_url = f'git://{distgit_host}/{namespace}/{repository}.git'
     branch = support.get_distgit_branch(data, group_cfg)
 
-    if not support.resource_is_reachable(f'http://{distgit_host}'):
+    if not support.resource_is_reachable(f'https://{distgit_host}/cgit'):
         return repo_url, f'This validation must run from a network with access to {distgit_host}'
 
     repo_dir = TemporaryDirectory()
