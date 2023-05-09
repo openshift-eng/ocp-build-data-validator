@@ -79,7 +79,17 @@
         "microshift?": {
           "$ref": "#/properties/advisories/properties/microshift"
         },
-        "microshift-": {}
+        "microshift-": {},
+        "silentops": {
+          "type": "integer"
+        },
+        "silentops!": {
+          "$ref": "#/properties/advisories/properties/silentops"
+        },
+        "silentops?": {
+          "$ref": "#/properties/advisories/properties/silentops"
+        },
+        "silentops-": {}
       },
       "additionalProperties": false
     },
