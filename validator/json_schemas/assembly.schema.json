@@ -83,7 +83,13 @@
           "code": {
             "description": "The error code to permit",
             "type": "string",
-            "minLength": 1
+            "enum": [
+              "ATTACHED_BUGS",
+              "BLOCKER_BUGS",
+              "CVE_FLAWS",
+              "INVALID_ERRATA_STATUS",
+              "NO_ERRATA"
+            ]
           },
           "why": {
             "description": "The reason why this error should be permitted. Note this text is public. Don't include customer related or confidential information.",
