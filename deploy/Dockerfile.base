@@ -17,7 +17,13 @@ RUN yum install -y epel-release @python38 \
  && update-alternatives --set python3 /usr/bin/python3.8
 
 RUN python3 -m pip install -U pip \
- && useradd -ms /bin/bash -u 1000 art
+ && useradd -ms /bin/bash -u 1000 art \
+ && curl -o /etc/pki/ca-trust/source/anchors/2022-IT-Root-CA.pem --fail -L \
+         https://certs.corp.redhat.com/certs/2022-IT-Root-CA.pem \
+ && curl -o /etc/pki/ca-trust/source/anchors/2015-IT-Root-CA.pem --fail -L \
+         https://certs.corp.redhat.com/certs/2015-IT-Root-CA.pem \
+ && update-ca-trust extract  # Trust the Red Hat IT Root CAs
+
 
 USER art
 # These environment variables are required to install pycurl, koji, and rpkg with pip
