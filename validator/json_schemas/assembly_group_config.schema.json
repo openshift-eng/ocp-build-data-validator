@@ -27,6 +27,9 @@
       "$ref": "#/properties/repos"
     },
     "repos-": {},
+    "urls": {
+      "type": "object"
+    },
     "advisories": {
       "type": "object",
       "properties": {
