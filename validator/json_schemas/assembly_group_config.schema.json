@@ -155,7 +155,39 @@
       "$ref": "#/properties/cachito"
     },
     "cachito-": {},
-    "build_profiles": {}
+    "build_profiles": {},
+    "build_profiles?": {
+      "$ref": "#/properties/build_profiles"
+    },
+    "build_profiles-": {},
+    "urls": {
+      "description": "URLs",
+      "type": "object",
+      "properties": {
+        "brewhub": {"type": "string"},
+        "brew_image_host": {"type": "string"},
+        "brew_image_namespace": {"type": "string"},
+        "cgit": {"type": "string"},
+        "rhcos_release_base": {
+          "type": "object",
+          "properties": {
+            "multi": {"type": "string"}
+          },
+          "patternProperties": {
+            "*": {"type": "string"}
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "urls!": {
+      "$ref": "#/properties/urls"
+    },
+    "urls?": {
+      "$ref": "#/properties/urls"
+    },
+    "urls-": {}
   },
   "additionalProperties": false
 }
