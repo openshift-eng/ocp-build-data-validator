@@ -27,9 +27,6 @@
       "$ref": "#/properties/repos"
     },
     "repos-": {},
-    "urls": {
-      "type": "object"
-    },
     "advisories": {
       "type": "object",
       "properties": {
@@ -174,7 +171,7 @@
             "multi": {"type": "string"}
           },
           "patternProperties": {
-            "*": {"type": "string"}
+            ".+": {"type": "string"}
           },
           "additionalProperties": false
         }
@@ -187,7 +184,15 @@
     "urls?": {
       "$ref": "#/properties/urls"
     },
-    "urls-": {}
+    "urls-": {},
+    "canonical_builders_from_upstream": {},
+    "canonical_builders_from_upstream?": {
+      "$ref": "#/properties/canonical_builders_from_upstream"
+    },
+    "canonical_builders_from_upstream!": {
+      "$ref": "#/properties/canonical_builders_from_upstream"
+    },
+    "canonical_builders_from_upstream-": {}
   },
   "additionalProperties": false
 }
