@@ -670,7 +670,20 @@
         "extra_packages?": {
           "$ref": "#/properties/scan_sources/properties/extra_packages"
         },
-        "extra_packages-": {}
+        "extra_packages-": {},
+        "exempted_packages": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "exempted_packages!": {
+          "$ref": "#/properties/scan_sources/properties/exempted_packages"
+        },
+        "exempted_packages?": {
+          "$ref": "#/properties/scan_sources/properties/exempted_packages"
+        },
+        "exempted_packages-": {}
       },
       "additionalProperties": false
     },
