@@ -25,4 +25,4 @@ def validate(file, data):
         # TODO: Check if the base images referenced in `from` field exist
     except ValidationError:
         errors = validator.iter_errors(data)
-        return '\n\n'.join([str(e) for e in errors])
+        return '\n'.join([str(e.message) for e in errors])
