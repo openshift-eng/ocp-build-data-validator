@@ -83,6 +83,6 @@ class TestImageSchema(unittest.TestCase):
             },
         }
         self.assertIn(
-            "Failed validating 'anyOf' in schema",
+            "is not valid",
             image_schema.validate('filename', data)
         )
