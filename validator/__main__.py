@@ -7,7 +7,7 @@ from . import format, support, schema, github, distgit, cgit
 from . import exceptions, global_session
 
 
-def validate(file):
+def validate(file, exclude_vpn):
     (parsed, err) = format.validate(open(file).read())
     if err:
         msg = '{} is not a valid YAML\nReturned error: {}'.format(file, err)
@@ -34,17 +34,20 @@ def validate(file):
                'Returned error: {}').format(file, url, err)
         support.fail_validation(msg, parsed)
 
-    (url, err) = distgit.validate(file, parsed, group_cfg)
-    if err:
-        msg = ('DistGit validation failed for {} ({})\n'
-               'Returned error: {}').format(file, url, err)
-        support.fail_validation(msg, parsed)
+    if exclude_vpn:
+        print('Skipping distgit and cgit validations')
+    else:
+        (url, err) = distgit.validate(file, parsed, group_cfg)
+        if err:
+            msg = ('DistGit validation failed for {} ({})\n'
+                   'Returned error: {}').format(file, url, err)
+            support.fail_validation(msg, parsed)
 
-    (url, err) = cgit.validate(file, parsed, group_cfg)
-    if err:
-        msg = ('CGit validation failed for {} ({})\n'
-               'Returned error: {}').format(file, url, err)
-        support.fail_validation(msg, parsed)
+        (url, err) = cgit.validate(file, parsed, group_cfg)
+        if err:
+            msg = ('CGit validation failed for {} ({})\n'
+                   'Returned error: {}').format(file, url, err)
+            support.fail_validation(msg, parsed)
 
     print(f'✅ Validated {file}')
 
@@ -63,17 +66,22 @@ def main():
                         default=False,
                         action='store_true',
                         help='Run in single thread, so code.interact() works')
+    parser.add_argument('--exclude-vpn',
+                        dest='exclude_vpn',
+                        default=False,
+                        action='store_true',
+                        help='Exclude validations that require vpn access')
     args = parser.parse_args()
     print(f"Validating {len(args.files)} file(s)...")
     if args.single_thread:
         for f in args.files:
-            validate(f)
+            validate(f, args.exclude_vpn)
     else:
         try:
             rc = 0
             pool = Pool(cpu_count(), initializer=global_session.set_global_session)
             atexit.register(pool.close)
-            pool.map(validate, args.files)
+            pool.starmap(validate, [(f, args.exclude_vpn) for f in args.files])
         except exceptions.ValidationFailedWIP as e:
             print(str(e), file=sys.stderr)
         except (exceptions.ValidationFailed, Exception) as e:
