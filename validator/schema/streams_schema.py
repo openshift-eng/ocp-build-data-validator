@@ -7,6 +7,7 @@ STREAMS_SCHEMA = {
             'upstream_image': And(str, len),
             Optional('mirror'): bool,
             Optional('transform'): And(str, len),
+            Optional('upstream_image_mirror'): list,
         },
     }
 
