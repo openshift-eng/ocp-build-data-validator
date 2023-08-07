@@ -21,6 +21,9 @@
                 "mirror": {
                     "type": "boolean"
                 },
+                "mirror_manifest_list": {
+                    "type": "boolean"
+                },
                 "transform": {
                     "type": "string",
                     "minLength": 1
