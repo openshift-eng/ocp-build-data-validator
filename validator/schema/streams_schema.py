@@ -6,6 +6,7 @@ STREAMS_SCHEMA = {
             Optional('upstream_image_base'): And(str, len),  # won't need if we do not transform
             'upstream_image': And(str, len),
             Optional('mirror'): bool,
+            Optional('mirror_manifest_list'): bool,
             Optional('transform'): And(str, len),
         },
     }
