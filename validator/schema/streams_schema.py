@@ -8,6 +8,7 @@ STREAMS_SCHEMA = {
             Optional('mirror'): bool,
             Optional('mirror_manifest_list'): bool,
             Optional('transform'): And(str, len),
+            Optional('upstream_image_mirror'): list,
         },
     }
 
