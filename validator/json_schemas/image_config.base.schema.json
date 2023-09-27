@@ -364,6 +364,9 @@
           "$ref": "#/properties/labels/properties/com.redhat.delivery.appregistry"
         },
         "com.redhat.delivery.appregistry-": {},
+        "com.redhat.prerelease": {
+          "type": "boolean"
+        },
         "io.k8s.description": {
           "type": "string",
           "minLength": 1
