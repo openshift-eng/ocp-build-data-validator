@@ -365,7 +365,7 @@
         },
         "com.redhat.delivery.appregistry-": {},
         "com.redhat.prerelease": {
-          "type": "boolean"
+          "type": ["boolean", "string"]
         },
         "io.k8s.description": {
           "type": "string",
