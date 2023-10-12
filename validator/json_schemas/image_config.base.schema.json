@@ -364,6 +364,9 @@
           "$ref": "#/properties/labels/properties/com.redhat.delivery.appregistry"
         },
         "com.redhat.delivery.appregistry-": {},
+        "com.redhat.hotfix": {
+          "type": "string"
+        },
         "com.redhat.prerelease": {
           "type": ["boolean", "string"]
         },
