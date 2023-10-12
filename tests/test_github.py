@@ -328,7 +328,7 @@ class TestGitHub(unittest.TestCase):
             }
 
         self.assertTrue(github.has_permitted_repo(data('openshift-priv/my-repo')))
-        self.assertTrue(github.has_permitted_repo(data('openshift/ocp-build-data')))
+        self.assertTrue(github.has_permitted_repo(data('openshift-eng/ocp-build-data')))
         self.assertFalse(github.has_permitted_repo(data('cpuguy85/h4ckzor')))
 
 

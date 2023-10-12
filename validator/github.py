@@ -167,7 +167,7 @@ def has_permitted_repo(data):
         'openshift/prometheus-alertmanager',  # max version 3.11
         'openshift/eventrouter',  # max version 4.6
         'openshift/cluster-capacity',  # max version 3.11
-        'openshift/ocp-build-data',  # max version 4.12
+        'openshift-eng/ocp-build-data',  # max version 4.12
         'openshift/node-problem-detector',  # max version 3.11
         'openshift/kube-state-metrics',  # max version 3.11
         'kube-reporting/metering-operator',  # max version 4.8
