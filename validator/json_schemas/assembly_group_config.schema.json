@@ -89,7 +89,27 @@
         "silentops?": {
           "$ref": "#/properties/advisories/properties/silentops"
         },
-        "silentops-": {}
+        "silentops-": {},
+        "prerelease": {
+          "type": "integer"
+        },
+        "prerelease!": {
+          "$ref": "#/properties/advisories/properties/prerelease"
+        },
+        "prerelease?": {
+          "$ref": "#/properties/advisories/properties/prerelease"
+        },
+        "prerelease-": {},
+        "advance": {
+          "type": "integer"
+        },
+        "advance!": {
+          "$ref": "#/properties/advisories/properties/advance"
+        },
+        "advance?": {
+          "$ref": "#/properties/advisories/properties/advance"
+        },
+        "advance-": {}
       },
       "additionalProperties": false
     },
