@@ -212,7 +212,11 @@
     "canonical_builders_from_upstream!": {
       "$ref": "#/properties/canonical_builders_from_upstream"
     },
-    "canonical_builders_from_upstream-": {}
+    "canonical_builders_from_upstream-": {},
+    "operator_index_mode": {
+      "type": "string",
+      "enum": ["pre-release", "pre-ga", "ga"]
+    }
   },
   "additionalProperties": false
 }
