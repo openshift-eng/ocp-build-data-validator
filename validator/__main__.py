@@ -46,7 +46,7 @@ def validate(file, exclude_vpn):
             (url, err) = distgit.validate(file, parsed, group_cfg)
             if err:
                 msg = ('DistGit validation failed for {} ({})\n'
-                    'Returned error: {}').format(file, url, err)
+                       'Returned error: {}').format(file, url, err)
                 support.fail_validation(msg, parsed)
 
     print(f'✅ Validated {file}')
