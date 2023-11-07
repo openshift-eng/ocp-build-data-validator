@@ -61,6 +61,17 @@
               "$ref": "#/properties/source/properties/ci_alignment/properties/mirror"
             },
             "mirror-": {},
+            "mirror_manifest_list": {
+              "description": "Mirror the entire manifest list instead of just arch specific manifests",
+              "type": "boolean"
+            },
+            "mirror_manifest_list?": {
+              "$ref": "#/properties/source/properties/ci_alignment/properties/mirror_manifest_list"
+            },
+            "mirror_manifest_list!": {
+              "$ref": "#/properties/source/properties/ci_alignment/properties/mirror_manifest_list"
+            },
+            "mirror_manifest_list-": {},
             "streams_prs": {
               "description": "Configuration for creating PRs to align upstream dockerfiles w/ ART",
               "type": "object",
@@ -368,7 +379,18 @@
     "source?": {
       "$ref": "#/properties/source"
     },
-    "source-": {}
+    "source-": {},
+    "set_build_variables": {
+      "description": "If False, do not inject environment variables into the Dockerfile. This is occasionally necessary for images like golang builder where env vars pollute the environment for code trying to establish their OWN src commit hash, etc.",
+      "type": "boolean"
+    },
+    "set_build_variables!": {
+      "$ref": "#/properties/set_build_variables"
+    },
+    "set_build_variables?": {
+      "$ref": "#/properties/set_build_variables"
+    },
+    "set_build_variables-": {}
   },
   "additionalProperties": false
 }
