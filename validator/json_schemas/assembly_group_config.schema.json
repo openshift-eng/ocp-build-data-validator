@@ -176,6 +176,25 @@
     "build_profiles?": {
       "$ref": "#/properties/build_profiles"
     },
+    "rhcos": {
+      "description": "RHCOS needs special config as it is a special build",
+      "type": "object",
+      "properties": {
+        "payload_tags": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+               "name": {"type": "string"},
+               "build_metadata_key": {"type": "string"},
+               "primary": {"type": "boolean"}
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    },
     "build_profiles-": {},
     "urls": {
       "description": "URLs",
