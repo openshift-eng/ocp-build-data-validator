@@ -158,7 +158,7 @@
       "$ref": "#/properties/distgit"
     },
     "distgit-": {},
-    "env": {
+    "envs": {
       "type": "object",
       "patternProperties": {
         "^.+$": {
@@ -167,13 +167,13 @@
       },
       "additionalProperties": false
     },
-    "env!": {
-      "$ref": "#/properties/env"
+    "envs!": {
+      "$ref": "#/properties/envs"
     },
-    "env?": {
-      "$ref": "#/properties/env"
+    "envs?": {
+      "$ref": "#/properties/envs"
     },
-    "env-": {},
+    "envs-": {},
     "final_stage_user": {
       "description": "When doozer injects USER 0 to do a yum update, this field instructs doozer to set this user afterwards in the final stage of the build.",
       "oneOf": [
