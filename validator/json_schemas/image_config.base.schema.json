@@ -885,7 +885,17 @@
     "is?": {
       "$ref": "#/properties/is"
     },
-    "is-": {}
+    "is-": {},
+    "scanning": {
+      "description": "Scanning content configuration",
+      "$ref": "scanning.schema.json"
+    },
+    "scanning!": {
+      "$ref": "#/properties/scanning"
+    },
+    "scanning?": {
+      "$ref": "#/properties/scanning"
+    }
   },
   "additionalProperties": false
 }
