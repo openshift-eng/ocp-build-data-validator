@@ -3,9 +3,11 @@
   "$id": "scanning.schema.json",
   "title": "Scanning Content",
   "type": "object",
+  "additionalProperties": false,
   "properties": {
     "jira_integration": {
       "type": "object",
+      "additionalProperties": false,
       "properties": {
         "enabled": {
           "description": "Whether to raise OCPBUGS tickets for failing SAST scans. Default value: false",
