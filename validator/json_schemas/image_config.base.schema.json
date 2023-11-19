@@ -6,6 +6,7 @@
   "properties": {
     "additional_tags": {
       "type": "array",
+      "description": "Floating tags under which the resulting image can be pulled from regigistry-proxy.engineering.redhat.com",
       "items": {
         "type": "string",
         "minLength": 1
@@ -20,6 +21,7 @@
     "additional_tags-": {},
     "arches": {
       "type": "array",
+      "description": "CPU architectures that this image is built for. Overrides the default from group.yml",
       "items": {
         "$ref": "arch.schema.json"
       }
@@ -32,6 +34,7 @@
     },
     "arches-": {},
     "base_only": {
+      "description": "If true, the resulting image will not be attached to advisories. Typical for base images",
       "type": "boolean"
     },
     "base_only!": {
@@ -53,6 +56,7 @@
     },
     "cachito-": {},
     "container_yaml": {
+      "description": "Unknown purpose XXX",
       "type": "object"
     },
     "container_yaml!": {
@@ -63,7 +67,7 @@
     },
     "container_yaml-": {},
     "content": {
-      "description": "Image content configuration",
+      "description": "Image content configuration XXX",
       "$ref": "image_content.base.schema.json"
     },
     "content!": {
@@ -84,11 +88,12 @@
     },
     "dependencies-": {},
     "dependents": {
-      "type": "array",
+      "description": "List of images that need to rebuild if this image builds. Typically, operands list their operators here.",
       "items": {
         "type": "string",
         "minLength": 1
-      }
+      },
+      "type": "array"
     },
     "dependents!": {
       "$ref": "#/properties/dependents"
@@ -98,9 +103,11 @@
     },
     "dependents-": {},
     "distgit": {
+      "description": "Configuration of the midstream repository, distgit",
       "type": "object",
       "properties": {
         "namespace": {
+          "description": "The distgit namespace, by default rpms for rpms and containers for images",
           "type": "string",
           "enum": [
             "apbs",
@@ -116,6 +123,7 @@
         },
         "namespace-": {},
         "component": {
+          "description": "The name in distgit for this image. Default to file name in ocp-build-data",
           "type": "string",
           "minLength": 1
         },
@@ -127,6 +135,7 @@
         },
         "component-": {},
         "bundle_component": {
+          "description": "Component of the bundle/metadata repository",
           "type": "string",
           "minLength": 1
         },
@@ -138,6 +147,7 @@
         },
         "bundle_component-": {},
         "branch": {
+          "description": "Distgit branch. Defaults to value in group.yml",
           "type": "string",
           "minLength": 1
         },
@@ -159,6 +169,7 @@
     },
     "distgit-": {},
     "envs": {
+      "description": "Environment variables that get injected in the Dockerfile during rebase",
       "type": "object",
       "patternProperties": {
         "^.+$": {
@@ -193,11 +204,12 @@
     },
     "final_stage_user-": {},
     "enabled_repos": {
-      "type": "array",
+      "description": "List of repositories that should be enabled at image build time. List of keys of group.yml's `repos`",
       "items": {
         "type": "string",
         "minLength": 1
-      }
+      },
+      "type": "array"
     },
     "enabled_repos!": {
       "$ref": "#/properties/enabled_repos"
@@ -207,6 +219,7 @@
     },
     "enabled_repos-": {},
     "non_shipping_repos": {
+      "description": "List of repositories that should be enabled at build time, but do not result in installed rpms in the final layer. For security accounting, declare this repo to not be present in last layer",
       "type": "array",
       "items": {
         "type": "string",
@@ -235,14 +248,17 @@
     },
     "non_shipping_rpms-": {},
     "from": {
+      "description": "Ordered list of what the FROMs in the upstream Dockerfile should be replaced with",
       "type": "object",
       "properties": {
         "builder": {
+          "description": "List of images of the non-final layer",
           "type": "array",
           "items": {
             "type": "object",
             "properties": {
               "stream": {
+                "description": "Base images from streams.yml",
                 "type": "string",
                 "minLength": 1
               },
@@ -254,6 +270,7 @@
               },
               "stream-": {},
               "member": {
+                "description": "Base image managed by ocp-build-data/images in the current branch",
                 "type": "string",
                 "minLength": 1
               },
@@ -265,6 +282,7 @@
               },
               "member-": {},
               "image": {
+                "description": "Currently unused",
                 "type": "string",
                 "minLength": 1
               },
@@ -322,6 +340,7 @@
     },
     "from-": {},
     "labels": {
+      "description": "Lables that get added to the Dockerfile",
       "type": "object",
       "properties": {
         "summary": {
@@ -436,8 +455,9 @@
     },
     "labels-": {},
     "image_build_method": {
+      "description": "OSBS image build method to be used",
       "type": "string",
-      "minLength": 1
+      "enum": ["osbs2"]
     },
     "image_build_method!": {
       "$ref": "#/properties/image_build_method"
@@ -447,6 +467,7 @@
     },
     "image_build_method-": {},
     "mode": {
+      "description": "How automation should treat this image",
       "type": "string",
       "enum": [
         "auto",
@@ -462,6 +483,7 @@
     },
     "mode-": {},
     "name": {
+      "description": "Ought to refer somewhat to the name on Comet",
       "type": "string",
       "minLength": 1
     },
@@ -473,6 +495,7 @@
     },
     "name-": {},
     "odcs": {
+      "description": "Configuration for an alternative, unused method for making rpms available to builds",
       "type": "object",
       "properties": {
         "packages": {
@@ -541,6 +564,7 @@
     },
     "odcs-": {},
     "no_oit_comments": {
+      "description": "Deprecated. Only used in 3.11 and 4.6",
       "type": "boolean"
     },
     "no_oit_comments!": {
@@ -551,10 +575,11 @@
     },
     "no_oit_comments-": {},
     "owners": {
+      "description": "Email addresses that will receive notification on build events",
       "type": "array",
       "items": {
         "type": "string",
-        "minLength": 1
+        "format": "email"
       }
     },
     "owners!": {
@@ -565,6 +590,7 @@
     },
     "owners-": {},
     "payload_name": {
+      "description": "Name under which the image is referred to in the payload. May be different from the Comet name",
       "type": "string",
       "minLength": 1
     },
@@ -576,6 +602,7 @@
     },
     "payload_name-": {},
     "push": {
+      "description": "Deprecated. Unused after 3.11 and 4.6",
       "type": "object",
       "properties": {
         "late": {
@@ -627,6 +654,7 @@
     },
     "push-": {},
     "required": {
+      "description": "Currently unused. Deprecated.",
       "type": "boolean"
     },
     "required!": {
@@ -637,9 +665,11 @@
     },
     "required-": {},
     "scan_sources": {
+      "description": "Configure conditions under which builds are triggered",
       "type": "object",
       "properties": {
         "extra_packages": {
+          "description": "Currently unused",
           "type": "array",
           "items": {
             "type": "object",
@@ -678,6 +708,7 @@
         },
         "extra_packages-": {},
         "exempted_packages": {
+          "description": "Do not trigger builds if rpms listed are the reason for change. Reasons could be tzdata, or when rpms are pinned in Dockerfile",
           "type": "array",
           "items": {
             "type": "string"
@@ -701,6 +732,7 @@
     },
     "scan_sources-": {},
     "update-csv": {
+      "description": "For operators only. Configures where to look how for operator metadata, among which the clusterserviceversion.yaml file",
       "type": "object",
       "properties": {
         "manifests-dir": {
@@ -779,6 +811,7 @@
     },
     "update-csv-": {},
     "wait_for": {
+      "description": "Deprecated. Only used in 3.11",
       "type": "string",
       "minLength": 1
     },
@@ -790,6 +823,7 @@
     },
     "wait_for-": {},
     "maintainer": {
+      "description": "Metadata of who owns the image",
       "type": "object",
       "properties": {
         "product": {
@@ -836,6 +870,7 @@
     },
     "maintainer-": {},
     "for_payload": {
+      "description": "If true, image gets included in the imageStream for the payloads, and builds get collected in the image advisory",
       "type": "boolean"
     },
     "for_payload!": {
@@ -846,6 +881,7 @@
     },
     "for_payload-": {},
     "for_release": {
+      "description": "If false, does not get collected in advisories",
       "type": "boolean"
     },
     "for_release!": {
@@ -856,6 +892,7 @@
     },
     "for_release-": {},
     "name_in_bundle": {
+      "description": "How the upstream operator calls this operand in the clusterserviceversion.yaml.",
       "type": "string",
       "minLength": 1
     },
@@ -867,9 +904,11 @@
     },
     "name_in_bundle-": {},
     "is": {
+      "description": "Equals. For pinning in assemblies",
       "type": "object",
       "properties": {
         "nvr": {
+          "description": "Brew nvr to get pinned",
           "type": "string",
           "minLength": 1
         }
