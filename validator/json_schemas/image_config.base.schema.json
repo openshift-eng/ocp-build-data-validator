@@ -886,15 +886,15 @@
       "$ref": "#/properties/is"
     },
     "is-": {},
-    "scanning": {
+    "external_scanners": {
       "description": "Scanning content configuration",
       "$ref": "scanning.schema.json"
     },
-    "scanning!": {
-      "$ref": "#/properties/scanning"
+    "external_scanners!": {
+      "$ref": "#/properties/external_scanners"
     },
-    "scanning?": {
-      "$ref": "#/properties/scanning"
+    "external_scanners?": {
+      "$ref": "#/properties/external_scanners"
     }
   },
   "additionalProperties": false
