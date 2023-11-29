@@ -170,6 +170,7 @@ def has_permitted_repo(data):
         'openshift-eng/ocp-build-data',  # max version 4.12
         'openshift/node-problem-detector',  # max version 3.11
         'openshift/kube-state-metrics',  # max version 3.11
+        'openshift/c2s-install',  # max version 3.11
         'kube-reporting/metering-operator',  # max version 4.8
         'kube-reporting/hive',  # max version 4.8
         'kube-reporting/hadoop',  # max version 4.8
