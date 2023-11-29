@@ -3,6 +3,7 @@ from validator.schema.modification_schema import modification
 
 
 GIT_SSH_URL_REGEX = r'((git@[\w\.]+))([\w\.@\:/\-~]+)(\.git)(/)?'
+GIT_WEB_URL_REGEX = r'https://github.com\/[a-z-]+/[a-z-]+'
 
 valid_modes = [
     'auto',
@@ -25,6 +26,7 @@ RPM_CONTENT_SCHEMA = {
                 'target': And(str, len),
             },
             'url': And(str, len, Regex(GIT_SSH_URL_REGEX)),
+            'web': And(str, len, Regex(GIT_WEB_URL_REGEX)),
         },
         Optional('specfile'): Regex(r'.+\.spec$'),
         Optional('modifications'): [modification],
