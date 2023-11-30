@@ -57,6 +57,13 @@ rpm_schema = Schema({
     Optional('hotfix_targets'): [
         And(str, len),
     ],
+    Optional('external_scanners'): {
+        Optional('sast_scanning'): {
+            Optional('jira_integration'): {
+                'enabled': And(bool)
+            }
+        }
+    }
 })
 
 
