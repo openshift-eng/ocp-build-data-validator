@@ -45,7 +45,7 @@ class TestImageSchema(unittest.TestCase):
                 'source': {
                     'git': {
                         'branch': {
-                            'target': 'test',
+                            'target': 'openshift-{MAJOR}-{MINOR}',
                         },
                         'url': url
                     }
