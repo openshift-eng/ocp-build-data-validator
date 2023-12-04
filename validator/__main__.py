@@ -7,7 +7,7 @@ from . import format, support, schema, github, distgit, cgit
 from . import exceptions, global_session
 
 
-def validate(file, exclude_vpn):
+def validate(file, exclude_vpn, schema_only):
     (parsed, err) = format.validate(open(file).read())
     if err:
         msg = '{} is not a valid YAML\nReturned error: {}'.format(file, err)
@@ -23,6 +23,10 @@ def validate(file, exclude_vpn):
         support.fail_validation(msg, parsed)
 
     if support.get_artifact_type(file) not in ['image', 'rpm']:
+        print(f'✅ Validated {file}')
+        return
+
+    if schema_only:
         print(f'✅ Validated {file}')
         return
 
@@ -71,17 +75,22 @@ def main():
                         default=False,
                         action='store_true',
                         help='Exclude validations that require vpn access')
+    parser.add_argument('--schema-only',
+                        dest='schema_only',
+                        default=False,
+                        action='store_true',
+                        help='Only run schema validations')
     args = parser.parse_args()
     print(f"Validating {len(args.files)} file(s)...")
     if args.single_thread:
         for f in args.files:
-            validate(f, args.exclude_vpn)
+            validate(f, args.exclude_vpn, args.schema_only)
     else:
         try:
             rc = 0
             pool = Pool(cpu_count(), initializer=global_session.set_global_session)
             atexit.register(pool.close)
-            pool.starmap(validate, [(f, args.exclude_vpn) for f in args.files])
+            pool.starmap(validate, [(f, args.exclude_vpn, args.schema_only) for f in args.files])
         except exceptions.ValidationFailedWIP as e:
             print(str(e), file=sys.stderr)
         except (exceptions.ValidationFailed, Exception) as e:
