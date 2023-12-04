@@ -125,7 +125,7 @@
         "component": {
           "description": "The name in distgit for this image. Default to file name in ocp-build-data",
           "type": "string",
-          "minLength": 1
+          "regex": "^[a-z_]+-container$"
         },
         "component!": {
           "$ref": "#/properties/distgit/properties/component"
@@ -485,7 +485,7 @@
     "name": {
       "description": "Ought to refer somewhat to the name on Comet",
       "type": "string",
-      "minLength": 1
+      "regex": "^openshift/.*$"
     },
     "name!": {
       "$ref": "#/properties/name"
@@ -934,7 +934,70 @@
     },
     "external_scanners?": {
       "$ref": "#/properties/external_scanners"
+    },
+    "schema_features": {
+      "description": "Features of schema required. Useful for introducing new constraints.",
+      "type": "array",
+      "items": {"enum": ["payload_name_required"]}
     }
   },
+  "allOf": [
+    { "comment": "Here some data validations can be defined" },
+    {
+      "comment": [
+        "Under the 'if', two conditions are asserted true:",
+        "- 'for_payload' has the value true",
+        "- 'for_payload' is present",
+        "Then, the existence of 'payload_name' is asserted"
+      ],
+      "if": {
+        "properties": {"for_payload": {"enum": [true]}},
+        "required": ["for_payload"]
+      },
+      "then": {"required": ["payload_name"]}
+    },
+    {
+      "comment": [
+        "Assert that all images that have clusterserviceversion mods defined",
+        "have a bundle component"
+      ],
+      "if": {
+        "properties": {"update-csv": {"type": "object"}},
+        "required": ["update-csv"]
+      },
+      "then": {
+        "required": ["distgit"],
+        "properties": {
+          "required": ["bundle_component"],
+          "distgit": {"required": ["bundle_component"]}
+        }
+      }
+    },
+    {
+      "comment": [
+        "Assert that anything building on the rhel9 distgit branch",
+        "ships to a rhel9 cdn repo"
+      ],
+      "if": {
+        "properties": {
+          "distgit": {
+            "type": "object",
+            "branch": {
+              "properties": {
+                "type": "string",
+                "regex": "rhel-9"
+              }
+            },
+            "required": ["branch"]
+          }
+        },
+        "required": ["distgit"]
+      },
+      "then": {
+        "required": ["name"],
+        "properties": {"name": {"pattern": "rhel9"}}
+      }
+    }
+  ],
   "additionalProperties": false
 }
