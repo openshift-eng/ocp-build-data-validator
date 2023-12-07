@@ -707,20 +707,20 @@
           "$ref": "#/properties/scan_sources/properties/extra_packages"
         },
         "extra_packages-": {},
-        "exempted_packages": {
+        "exempt_rpms": {
           "description": "Do not trigger builds if rpms listed are the reason for change. Reasons could be tzdata, or when rpms are pinned in Dockerfile",
           "type": "array",
           "items": {
             "type": "string"
           }
         },
-        "exempted_packages!": {
-          "$ref": "#/properties/scan_sources/properties/exempted_packages"
+        "exempt_rpms!": {
+          "$ref": "#/properties/scan_sources/properties/exempt_rpms"
         },
-        "exempted_packages?": {
-          "$ref": "#/properties/scan_sources/properties/exempted_packages"
+        "exempt_rpms?": {
+          "$ref": "#/properties/scan_sources/properties/exempt_rpms"
         },
-        "exempted_packages-": {}
+        "exempt_rpms-": {}
       },
       "additionalProperties": false
     },
