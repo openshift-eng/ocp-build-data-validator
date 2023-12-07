@@ -232,7 +232,7 @@
               "properties": {
                 "target": {
                   "type": "string",
-                  "pattern": "^(openshift|release|enterprise)-({MAJOR}.{MINOR}|base-(nodejs|nodejs-runtime|python|ruby|elasticsearch|jboss|rhel[789]))$"
+                  "minLength": 1
                 },
                 "target?": {
                   "$ref": "#/properties/source/properties/git/properties/branch/properties/target"
