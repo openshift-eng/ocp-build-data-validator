@@ -22,17 +22,11 @@
                 "type": "integer"
               }
             ]
-          },
-          "why": {
-            "type": "string",
-            "minLength": 1,
-            "description": "The reason why this issue should be listed. Note this text is public. Don't include customer related or confidential information."
           }
         },
         "additionalProperties": false,
         "required": [
-          "id",
-          "why"
+          "id"
         ]
       }
     },
