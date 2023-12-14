@@ -41,17 +41,17 @@ def validate(file, exclude_vpn, schema_only):
     if exclude_vpn:
         print('Skipping distgit and cgit validations')
     else:
-        (url, err) = distgit.validate(file, parsed, group_cfg)
-        if err:
-            msg = ('DistGit validation failed for {} ({})\n'
-                   'Returned error: {}').format(file, url, err)
-            support.fail_validation(msg, parsed)
-
         (url, err) = cgit.validate(file, parsed, group_cfg)
         if err:
             msg = ('CGit validation failed for {} ({})\n'
                    'Returned error: {}').format(file, url, err)
             support.fail_validation(msg, parsed)
+
+            (url, err) = distgit.validate(file, parsed, group_cfg)
+            if err:
+                msg = ('DistGit validation failed for {} ({})\n'
+                       'Returned error: {}').format(file, url, err)
+                support.fail_validation(msg, parsed)
 
     print(f'✅ Validated {file}')
 
