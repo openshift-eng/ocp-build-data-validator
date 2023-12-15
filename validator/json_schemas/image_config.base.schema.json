@@ -19,6 +19,26 @@
       "$ref": "#/properties/additional_tags"
     },
     "additional_tags-": {},
+    "alternative_upstream": {
+      "description": "List of configuration override that should be applied when using canonical builders, depending on upstream RHEL version",
+      "type": "array",
+      "minLength": 1,
+      "items": {
+        "type": "object",
+        "properties": {
+          "when": {
+            "description": "Upstream RHEL version that must be matched to apply the alternate config",
+            "type": "string"
+          }
+        }
+      }
+    },
+    "alternative_upstream?": {
+      "$ref": "#/properties/alternative_upstream"
+    },
+    "alternative_upstream!": {
+      "$ref": "#/properties/alternative_upstream"
+    },
     "arches": {
       "type": "array",
       "description": "CPU architectures that this image is built for. Overrides the default from group.yml",
