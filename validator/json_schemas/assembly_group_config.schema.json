@@ -224,7 +224,10 @@
       "$ref": "#/properties/urls"
     },
     "urls-": {},
-    "canonical_builders_from_upstream": {},
+    "canonical_builders_from_upstream": {
+      "description": "Assert our base images, or listen to upstream",
+      "enum": [true, false, "auto", "off", "no", "on", "yes"]
+    },
     "canonical_builders_from_upstream?": {
       "$ref": "#/properties/canonical_builders_from_upstream"
     },
