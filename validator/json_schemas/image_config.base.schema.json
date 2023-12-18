@@ -29,6 +29,30 @@
           "when": {
             "description": "Upstream RHEL version that must be matched to apply the alternate config",
             "type": "string"
+          },
+          "distgit": {
+            "description": "Alternative configuration of the midstream repository, distgit",
+            "type": "object",
+            "properties": {
+              "branch": {
+                "description": "Alternative distgit branch",
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          },
+          "enabled_repos": {
+            "description": "Alternative list of repositories that should be enabled at image build time. List of keys of group.yml's `repos`",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "type": "array"
+          },
+          "name": {
+            "description": "Alternative reference to Comet repo name",
+            "type": "string",
+            "minLength": 1
           }
         }
       }
