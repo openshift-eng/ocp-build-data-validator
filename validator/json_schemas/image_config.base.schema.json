@@ -989,6 +989,39 @@
     },
     "external_scanners?": {
       "$ref": "#/properties/external_scanners"
+    },
+    "check_external_packages": {
+      "description": "Defines external RPMs to check when assembling a release (ART-8416)",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "description": "Brew component name",
+            "type": "string",
+            "minLength": 1
+          },
+          "tag": {
+            "type": "string",
+            "description": "Brew tag name",
+            "minLength": 1
+          },
+          "condition": {
+            "type": "string",
+            "description": "How to check external packages",
+            "enum": [
+              "match",
+              "greater_equal"
+            ]
+          }
+        },
+        "required": [
+          "name",
+          "tag",
+          "condition"
+        ],
+        "additionalProperties": false
+      }
     }
   },
   "additionalProperties": false
