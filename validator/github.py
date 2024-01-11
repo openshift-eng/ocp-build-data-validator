@@ -161,6 +161,7 @@ def has_permitted_repo(data):
         'openshift/descheduler',  # max version 3.11
         'openshift/kubernetes-autoscaler',  # max version 3.11
         'openshift/console',  # max version 3.11
+        'openshift/cloud-provider-aws',  # max version 3.11
         'openshift/cluster-monitoring-operator',  # max version 3.11
         'openshift/service-catalog',  # max version 3.11
         'openshift/node_exporter',  # max version 3.11
